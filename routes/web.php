@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\DoctorModel;
+
 use App\Http\Controllers\VisaType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +19,6 @@ use App\Http\Controllers\EmbassyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\DatabaseController;
-use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\AdminVisaController;
@@ -32,10 +31,14 @@ use App\Http\Controllers\SocialMediaController;
 use App\Http\Controllers\AdminMedicineController;
 use App\Http\Controllers\HealthCardController;
 use App\Http\Controllers\SslCommerzPaymentController;
-use App\Models\HealthCard;
-use Symfony\Component\HttpKernel\Controller\ContainerControllerResolver;
+
 
 Auth::routes();
+
+Route::get('/{any}', function () {
+    // Redirect to a safe location or show a 404 page
+    abort(404);
+})->where('any', '.*');
 
 Route::get('/', function () {
     return view('welcome');
