@@ -35,10 +35,6 @@ use App\Http\Controllers\SslCommerzPaymentController;
 
 Auth::routes();
 
-Route::get('/{any}', function () {
-    // Redirect to a safe location or show a 404 page
-    abort(404);
-})->where('any', '.*');
 
 Route::get('/', function () {
     return view('welcome');
@@ -305,3 +301,7 @@ Route::group(['middleware' => 'admin_model'],function(){
     ]);
 
 });
+Route::get('/{any}', function () {
+    // Redirect to a safe location or show a 404 page
+    abort(404);
+})->where('any', '.*');
