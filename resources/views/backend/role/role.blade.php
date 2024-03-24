@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card border-0 shadow mt-4">
+                    {{-- <div class="card border-0 shadow mt-4">
                         <div class="card-header"><h4>Add Permission</h4></div>
                         <div class="card-body">
                             <form action="{{ route('permission.store') }}" method="post">
@@ -92,7 +92,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="card border-0 shadow mt-4">
                         <div class="card-header"><h4>Add Role</h4></div>

@@ -162,8 +162,8 @@ Route::group(['prefix' => 'admin'],function(){
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 
-Route::get('/md_admin/register', [AdminController::class, 'register_2'])->name('register.2');
-Route::post('/md_admin/register/confirmation', [AdminController::class, 'register'])->name('register2');
+Route::get('/sd_admin/register', [AdminController::class, 'register_2'])->name('register.2');
+Route::post('/sd_admin/register/confirmation', [AdminController::class, 'register'])->name('register2');
 
 
 Route::group(['middleware' => 'admin_model'],function(){
