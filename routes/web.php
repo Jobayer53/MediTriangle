@@ -156,7 +156,7 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 
 // =========== Admin Middleware ======== //
 //Back End Authentication Routes
-Route::group(['prefix' => 'admin'],function(){
+Route::group(['prefix' => 'sd_admin'],function(){
     Route::get('/login', [AdminController::class, 'loginLink'])->name('login.link');
     Route::post('/login/confirmation', [AdminController::class, 'login'])->name('admin.login');
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
