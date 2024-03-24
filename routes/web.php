@@ -300,6 +300,6 @@ Route::group(['middleware' => 'admin_model'],function(){
     ]);
 
 });
-Route::any('/{any}', function () {
-    abort(404);
-})->where('any', '.*');
+// Route::any('/{any}', function () {
+//     abort(404);
+// })->where('any', '.*');
