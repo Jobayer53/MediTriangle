@@ -32,7 +32,6 @@ use App\Http\Controllers\AdminMedicineController;
 use App\Http\Controllers\HealthCardController;
 use App\Http\Controllers\SslCommerzPaymentController;
 
-
 Auth::routes();
 
 
@@ -301,7 +300,6 @@ Route::group(['middleware' => 'admin_model'],function(){
     ]);
 
 });
-Route::get('/{any}', function () {
-    // Redirect to a safe location or show a 404 page
+Route::any('/{any}', function () {
     abort(404);
 })->where('any', '.*');
