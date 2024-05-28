@@ -98,7 +98,7 @@
                     <div class="navbar-nav ms-auto py-0">
                         <a href="{{ route('link.appoinment') }}" class="nav-item nav-link">Doctor Appointment</a>
                         {{-- <a href="{{ route('link.appoinment') }}" class="nav-item nav-link">Appointment</a> --}}
-                        <a href="{{ route('video.consultant.link') }}" class="nav-item nav-link">Doctor Video Consultant</a>
+                        <a href="{{ route('video.consultant.link') }}" class="nav-item nav-link">Doctor Video Consultation</a>
                         <a href="{{ route('link.visa') }}" class="nav-item nav-link">Visa Services</a>
                         {{-- <a href="{{ route('link.medicine') }}" class="nav-item nav-link">Medicine</a> --}}
                         <a href="{{route('health.card')}}" class="nav-item nav-link">Health Card</a>

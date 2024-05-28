@@ -63,6 +63,7 @@
                                 <i class="fa-brands fa-whatsapp icon"></i>
                                 <i class="fa-brands fa-instagram icon"></i>
                                 <i class="fa-solid fa-envelope icon"></i>
+                                <i class="fa fa-youtube icon"></i>
                             </div>
 
                             <div class="col-md-12 mb-3">
