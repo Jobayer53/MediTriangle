@@ -97,10 +97,10 @@ class FrontEndController extends Controller
         ]);
         if($request->pass_nid_number){
             $request->validate([
-                'pass_nid_number' =>'numeric|digits:10',
+                'pass_nid_number' =>'max:17',
             ],[
-                'pass_nid_number.numeric'=>'Please Input Numebr Type!',
-                'pass_nid_number.digits'=>'Number Should Be 10 Digits!',
+                'pass_nid_number.max'=>'Maximu 17 Digits!',
+
             ]);
 
             $application = new HealthCardApplicaton();
