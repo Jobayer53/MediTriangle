@@ -288,8 +288,8 @@ Route::group(['middleware' => 'admin_model'],function(){
     });
     //Role
     Route::get('role/link',[RoleController::class, 'index'])->name('role.link');
-    Route::post('permission/store',[RoleController::class, 'permissionStore'])->name('permission.store');
     Route::post('role/store',[RoleController::class, 'roleStore'])->name('role.store');
+    Route::post('permission/store',[RoleController::class, 'permissionStore'])->name('permission.store');
     Route::post('assign/store',[RoleController::class, 'assignStore'])->name('assign.store');
     Route::get('remove/role/{user_id}',[RoleController::class, 'removeRole'])->name('remove.role');
     Route::get('delete/role/{role_id}',[RoleController::class, 'deleteRole'])->name('delete.role');

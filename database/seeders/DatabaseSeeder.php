@@ -3,7 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\AdminModel;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Database\Seeders\RolePermissionSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +16,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $admin = AdminModel::where('name', 'Synex Digital')->first();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        if (is_null($admin)) {
+            $admin           = new AdminModel();
+            $admin->name     = "Synex Digital";
+            $admin->email    = "digitalsynex@gmail.com";
+            $admin->password = Hash::make('12345678');
+            $admin->role     = 1;
+            $admin->save();
+        }
+
+        $this->call(RolePermissionSeeder::class);
     }
 }
