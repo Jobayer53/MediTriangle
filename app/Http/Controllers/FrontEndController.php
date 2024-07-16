@@ -123,6 +123,9 @@ class FrontEndController extends Controller
         }
        return back();
     }
+    public function hospitalDetails($slug){
+        dd($slug);
+    }
 
     function hctc(){
         SEOMeta::setTitle('Health Card Terms And Conditions'); //web title

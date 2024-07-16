@@ -81,18 +81,18 @@
 <div class="container-fluid py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Services</h5>
-            <h1 class="display-4">Excellent Medical Services</h1>
+            <h5 class="d-inline-block text-primary text-uppercase  border-5 px-2" style="background-color: #ddd">Services</h5>
+            <h1 class="">Excellent Medical Services</h1>
         </div>
         <div class="row g-5">
             @forelse ($services->take(6) as $service)
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
-                    <div class="service-icon mb-4">
+                    <div class="service-icon mb-4" >
                         <i class="{{ $service->icon }} text-white" style="font-size: 35px"></i>
                     </div>
-                    <h4 class="mb-3">{{ $service->service }}</h4>
-                    <p class="m-0">{{ $service->short_description }}</p>
+                    <h4 class="" style="position: absolute; top:120px">{{ $service->service }}</h4>
+                    <p class="m-0" style="position: absolute; padding:10px;top:160px;font-size:14px">{{ $service->short_description }}</p>
                     {{-- <a class="btn btn-lg btn-primary rounded-pill" href="">
                         <i class="bi bi-arrow-right"></i>
                     </a> --}}
@@ -109,22 +109,28 @@
 <div class="container-fluid py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Hospitals </h5>
-            <h1 class="display-4">Our Hospitals In Bangladesh</h1>
+            <h5 class="d-inline-block text-primary text-uppercase  border-5 px-2" style="background-color: #ddd">Hospitals </h5>
+            <h1 class="">Our Hospitals In Bangladesh</h1>
         </div>
-        <div class="owl-carousel hospital-carousel position-relative">
+        <div class=" row  position-relative">
            @if (!$hospitalbd == null)
-            @foreach($hospitalbd as $data)
-                    <div class="col-lg-12 ">
-                        <div class="card">
-                            <img src="{{asset('uploads/hospitalimage.jpg')}}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                            <h6 class="card-title">{{$data->con_state->state}}</h6>
-                            <h3 class="text-center" > {{$data->hospital}} </h3>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+           @foreach($hospitalbd as $data)
+           <div class="col-lg-3 col-md-4 col-sm-4 mb-5">
+               <a href="{{ route('hospital.details',$data->slug) }}">
+                   <div class="card hospital-card" style="height: 250px;">
+                       <div class="{{ $data->image_second == null?'':'image-container' }}" style="position: relative; height: 192px;">
+                           <img height="192px" src="{{ asset('uploads/hospital/'.$data->image_first) }}" class="card-img-top first-image" >
+                           @if($data->image_second !== null)
+                           <img height="192px" src="{{ asset('uploads/hospital/'.$data->image_second) }}" class="card-img-top second-image" >
+                           @endif
+                       </div>
+                       <div class="card-body">
+                           <h6>{{ $data->hospital }}</h6>
+                       </div>
+                   </div>
+               </a>
+           </div>
+           @endforeach
            @endif
 
 
