@@ -88,6 +88,7 @@ Route::post('/ajax/department',[FrontAjaxController::class, 'department'])->name
 Route::post('/ajax/hospital',[FrontAjaxController::class, 'hospital'])->name('ajax.hospital');
 Route::post('/ajax/doctor',[FrontAjaxController::class, 'doctor'])->name('ajax.doctor');
 Route::post('/ajax/doctor/info',[FrontAjaxController::class, 'doctorInfo'])->name('ajax.doctor.info');
+Route::get('/find-doctors', [FrontEndController::class, 'findDoctor'])->name('doctor_view_all');
 //hospital details
 Route::get('/hospital/details/{slug}',[FrontEndController::class, 'hospitalDetails'])->name('hospital.details');
 

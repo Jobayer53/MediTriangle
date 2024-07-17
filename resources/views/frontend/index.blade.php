@@ -140,24 +140,28 @@
 <div class="container-fluid py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Hospitals </h5>
-            <h1 class="display-4">Our Hospitals In Abroad</h1>
+            <h5 class="d-inline-block text-primary text-uppercase  border-5 px-2" style="background-color: #ddd">Hospitals </h5>
+            <h1 class="">Our Hospitals In Abroad</h1>
         </div>
-        <div class="owl-carousel hospital-carousel position-relative">
+        <div class=" row  position-relative">
             @if (!$hospitalind == null)
-            @forelse($hospitalind as $data)
-                <div class="col-lg-12 ">
-                    <div class="card">
-                        <img src="{{asset('uploads/hospitalimage.jpg')}}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                        <h6 class="card-title">{{$data->con_state->state}}</h6>
-                        <h3 class="text-center" > {{$data->hospital}} </h3>
+                @foreach($hospitalind as $data)
+                <div class="col-lg-3 col-md-4 col-sm-4 mb-5">
+                    <a href="{{ route('hospital.details',$data->slug) }}">
+                        <div class="card hospital-card" style="height: 250px;">
+                            <div class="{{ $data->image_second == null?'':'image-container' }}" style="position: relative; height: 192px;">
+                                <img height="192px" src="{{ asset('uploads/hospital/'.$data->image_first) }}" class="card-img-top first-image" >
+                                @if($data->image_second !== null)
+                                <img height="192px" src="{{ asset('uploads/hospital/'.$data->image_second) }}" class="card-img-top second-image" >
+                                @endif
+                            </div>
+                            <div class="card-body">
+                                <h6>{{ $data->hospital }}</h6>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-            @empty
-                NOT DATA TO SHOW
-            @endforelse
+                @endforeach
             @endif
 
 
@@ -168,36 +172,32 @@
 <!-- Team Start -->
 <div class="container-fluid py-5">
     <div class="container">
-        <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Our Doctors</h5>
-            <h1 class="display-4">Qualified Healthcare Professionals</h1>
+        <div class="text-center mx-auto mb-5" >
+            <h5 class="d-inline-block text-primary text-uppercase  border-5 px-2" style="background-color: #ddd">Our Doctors</h5>
+            <h1 class="">Qualified Healthcare Professionals</h1>
         </div>
-        <div class="owl-carousel doctor-carousel position-relative">
-            @foreach ($doctors->take(5) as $doctor)
-            <div class="team-item">
-                <div class="row g-0 bg-light rounded overflow-hidden">
-                    <div class="col-12 col-sm-5 h-100">
-                        <img class="img-fluid h-100" src="{{ asset('uploads/doctor/'.$doctor->profile) }}" style="object-fit: cover;">
-                    </div>
-                    <div class="col-12 col-sm-7 h-100 d-flex flex-column">
-                        <div class="mt-auto p-4">
-                            <h3>{{ $doctor->name }}</h3>
+        <div class=" row position-relative">
+            @foreach ($doctors->take(8) as $doctor)
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card doctor-card">
+                        <img class="img-fluid  card-img-top" src="{{ asset('uploads/doctor/'.$doctor->profile) }}" style="object-fit: cover; height: 250px;">
+                    <div class="card-body">
+                        <h3>{{ $doctor->name }}</h3>
                             <h6 class="fw-normal fst-italic text-primary mb-4">{{ $doctor->con_department->department }}</h6>
                             <p class="mb-2" style="border-bottom: 1px solid #1ab8ae33;"><i class="fa-solid fa-house-medical text-primary p-2"></i>{{ $doctor->con_hospital->hospital }}</p>
                             <p class="mb-2" style="border-bottom: 1px solid #1ab8ae33;"><i class="fa-solid fa-stethoscope text-primary p-2"></i>{{ $doctor->career_title }}</p>
-                            <p class="m-0"><i class="fa-solid fa-book text-primary p-2"></i>{{ $doctor->speciality }}</p>
-                        </div>
-                        {{-- <div class="d-flex mt-auto border-top p-4">
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
-                        </div> --}}
+                            <p class="m-0" style="border-bottom: 1px solid #1ab8ae33;"><i class=" fa-solid fa-book text-primary p-2"></i>{{ $doctor->speciality }}</p>
+                            <button class="btn btn-sm btn-primary  mt-1">Profile</button>
+                            <button class="btn btn-sm btn-primary mt-1">Book An Appointment</button>
                     </div>
+
                 </div>
             </div>
             @endforeach
 
-
+        </div>
+        <div class="text-center">
+            <a href="{{route('doctor_view_all')}}"  class="btn btn-primary mt-5">View All</a>
         </div>
     </div>
 </div>
@@ -205,8 +205,8 @@
 <div class="container-fluid py-5">
     <div class="container ">
         <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Health Card</h5>
-            <h1 class="display-4">Awesome Medical Programs</h1>
+            <h5 class="d-inline-block text-primary text-uppercase  border-5 px-2" style="background-color: #ddd">Health Card</h5>
+            <h1 class="">Awesome Medical Programs</h1>
         </div>
         <div class=" col-lg-5 col-md-12 custom-p m-auto" style="padding: 0 45px 45px 45px;">
             @if ($healths )

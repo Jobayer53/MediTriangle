@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('state_id')->nullable();
             $table->string('hospital');
             $table->string('image_first');
-            $table->string('image_second')->nullable;
+            $table->string('image_second')->nullable();
             $table->longText('description');
             $table->integer('status')->default(1);
             $table->string('slug');

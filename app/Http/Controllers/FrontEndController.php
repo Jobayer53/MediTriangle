@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HealthCard;
-use App\Models\HealthCardApplicaton;
 use App\Models\User;
+use App\Models\HealthCard;
+use App\Models\DoctorModel;
 use Illuminate\Http\Request;
+use App\Models\HospitalModel;
+use App\Models\DepartmentModel;
+use App\Models\HealthCardApplicaton;
 use Illuminate\Support\Facades\Auth;
+use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\OpenGraph;
-use Artesaos\SEOTools\Facades\JsonLd;
 
 class FrontEndController extends Controller
 {
@@ -124,7 +127,18 @@ class FrontEndController extends Controller
        return back();
     }
     public function hospitalDetails($slug){
-        dd($slug);
+        $hospital = HospitalModel::where('slug',$slug)->first();
+        return view('frontend.hospital.hospital_details',[
+            'hospital' => $hospital
+        ]);
+    }
+    public function findDoctor(){
+        $departments = DepartmentModel::where('status',1)->get();
+        $doctors = DoctorModel::where('status',1)->get();
+        return view('frontend.doctor.doctor_filter',[
+            'departments' => $departments,
+            'doctors' => $doctors
+        ]);
     }
 
     function hctc(){
