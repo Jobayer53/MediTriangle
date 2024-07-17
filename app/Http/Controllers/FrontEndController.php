@@ -140,6 +140,21 @@ class FrontEndController extends Controller
             'doctors' => $doctors
         ]);
     }
+    public function department_result($id) {
+        $doctors = DoctorModel::with(['con_department', 'con_hospital'])
+                              ->where('department_id', $id)
+                              ->where('status', 1)
+                              ->get();
+        return response()->json($doctors);
+    }
+    public function search_result($search) {
+        $doctors = DoctorModel::with(['con_department', 'con_hospital'])
+        ->where('name', 'like' , "%$search%")
+        ->where('status', 1)
+        ->get();
+        return response()->json($doctors);
+    }
+
 
     function hctc(){
         SEOMeta::setTitle('Health Card Terms And Conditions'); //web title
