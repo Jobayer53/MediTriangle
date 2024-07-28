@@ -184,6 +184,7 @@
 <script>
     $(document).ready(function(){
         $("#deletebtn").click(function(){
+            
             var val = $(this).attr('href');
             $('#delete_confirm').attr('href', val);
         });

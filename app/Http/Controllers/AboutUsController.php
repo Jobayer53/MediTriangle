@@ -86,7 +86,8 @@ class AboutUsController extends Controller
         // return back()->with('succ', 'Added Successfully');
     }
     function aboutDelete($id){
-        $delPhoto = AboutModel::where('id',$id)->first()->photo;
+
+        $delPhoto = AboutModel::where('id',$id)->first();
         if($delPhoto->photo){
             $path = public_path('uploads/about/'.$delPhoto->photo);
             unlink($path);
@@ -95,7 +96,7 @@ class AboutUsController extends Controller
             $path = public_path('uploads/about/'.$delPhoto->video);
             unlink($path);
         }
-        AboutModel::find($id)->delete();
+        $delPhoto->delete();
         return back()->with('succ', 'Delete Successfully !');
     }
     function aboutEdit(Request $request){

@@ -171,12 +171,14 @@
 
                         </div>
                         <div class=" mb-3 ">
+                            <p id="size" style="position: absolute; top:46.6%; right:5%; z-index: 999;font-size: 11px"></p>
                             <label  class="form-label "> Passport Copy</label><span class="text-danger">*</span>
-                            <input type="file" class="form-control input-default" name="passport"   placeholder="" required>
+                            <input id="myFile" type="file" class="form-control input-default" name="passport"   placeholder="" required>
                         </div>
                         <div class=" mb-4 ">
+                            <p id="size2" style="position: absolute; top:59%; right:5%; z-index: 999;font-size: 11px"></p>
                             <label  class="form-label "> Medical Report</label><span class="text-danger">*</span > <span style="color: #f9a7a7; font-size:10px; ">(PDF ONLY)</span>
-                            <input type="file" class="form-control input-default" name="prescription"   placeholder=""  multiple>
+                            <input id="myFile2" type="file" class="form-control input-default" name="prescription"   placeholder=""  multiple>
                             @error('prescription')
                                 <span class="text-sm text-danger"> {{$message}} </span>
                             @enderror
@@ -391,6 +393,32 @@
         let inputNew = $('.medi:last').clone(true);
         $(inputNew).insertAfter('.medi:last');
     });
+
+
+    //binds to onchange event of your input field
+$('#myFile').bind('change', function() {
+    let size = (this.files[0].size / 1024) /1024 ;
+//this.files[0].size gets the size of your file.
+    $('#size').html((Math.round(size*100)/100).toFixed(2)+" MB");
+
+});
+    //binds to onchange event of your input field
+$('#myFile2').bind('change', function() {
+    let size = (this.files[0].size / 1024) /1024 ;
+//this.files[0].size gets the size of your file.
+    $('#size2').html((Math.round(size*100)/100).toFixed(2)+" MB");
+
+});
+
+    // Get an array of the files
+//var files = $('input[type="file"]').get(0).files[0];
+    //$('#size').val(files.size);
+// // Loop through files
+// for (var i=0; file = files[i]; i++) {
+
+//     // File size, in bytes
+//     var size = file.size;
+// }
 </script>
 
 

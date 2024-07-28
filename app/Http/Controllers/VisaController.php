@@ -31,7 +31,7 @@ class VisaController extends Controller
     }
     function visaStore(Request $request){
 
-
+dd(round(($request->file('passport')->getSize()) / 1024) / 1024, 2);
         $order_id ='#OR'.rand(1,5000).'DER'.rand(1,500);
         $fee = 2500;
         $request->validate([

@@ -19,7 +19,7 @@
         <link href="{{ asset('backend/libs/%40iconscout/unicons/css/line.css') }}" type="text/css" rel="stylesheet" />
         <!-- Style Css-->
         <link href="{{ asset('backend/css/style.min.css') }}" class="theme-opt" rel="stylesheet" type="text/css" />
-        {{-- <script src="https://kit.fontawesome.com/70b22ffbec.js" crossorigin="anonymous"></script> --}}
+        <script src="https://kit.fontawesome.com/70b22ffbec.js" crossorigin="anonymous"></script>
 
         @yield('style')
         <style>
@@ -315,14 +315,14 @@
         <script src="{{ asset('backend/libs/simplebar/simplebar.min.js') }}"></script>
         <script src="{{ asset('backend/libs/apexcharts/apexcharts.min.js') }}"></script>
         <script src="{{ asset('backend/js/admin-apexchart.init.js') }}"></script>
-        {{-- <script src="{{ asset('backend/libs/feather-icons/feather.min.js') }}"></script> --}}
+        <script src="{{ asset('backend/libs/feather-icons/feather.min.js') }}"></script>
         <!-- Main Js -->
         <!-- JAVASCRIPT -->
         <script src="{{ asset('backend/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('backend/js/plugins.init.js') }}"></script>
         <script src="{{ asset('backend/js/app.js') }}"></script>
-        {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
-        {{-- <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script> --}}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 
         {{-- Modals For View --}}
         @if (session('succ'))

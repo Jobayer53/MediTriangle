@@ -79,9 +79,9 @@ Route::group(['middleware' => 'auth'],function(){
 });
 
 //Appoinment
-Route::get('/appoinment',[FrontEndController::class, 'appoinmentLink'])->name('link.appoinment');
-Route::post('/appoinment/store',[AppoinmentController::class, 'appoinmentStore'])->name('store.appoinment');
-Route::get('/appoinment/store/done',[AppoinmentController::class, 'appoinmentStoreDone'])->name('store.appoinment.done');
+Route::get('/appointment',[FrontEndController::class, 'appoinmentLink'])->name('link.appoinment');
+Route::post('/appointment/store',[AppoinmentController::class, 'appoinmentStore'])->name('store.appoinment');
+Route::get('/appointment/store/done',[AppoinmentController::class, 'appoinmentStoreDone'])->name('store.appoinment.done');
 //front AJAX Request
 Route::post('/ajax/state',[FrontAjaxController::class, 'state'])->name('ajax.state');
 Route::post('/ajax/department',[FrontAjaxController::class, 'department'])->name('ajax.department');
@@ -200,7 +200,7 @@ Route::group(['middleware' => 'admin_model'],function(){
     Route::get('/user/health-card/application',[HealthCardController::class, 'healthCardData'])->name('health.card.data');
     Route::get('/user/health-card/application/edit/{id}',[HealthCardController::class, 'healthCardDataEdit'])->name('health.card.edit');
     Route::post('/user/health-card/application/update',[HealthCardController::class, 'healthCardDataUpdate'])->name('health.card.update');
-    
+
     //Order Medicine Manage
     Route::get('/medicine/link',[AdminMedicineController::class, 'link'])->name('admin.medicine.link');
     Route::get('/medicine/watch/{id}',[AdminMedicineController::class, 'medicineWatch'])->name('medicine.watch');
