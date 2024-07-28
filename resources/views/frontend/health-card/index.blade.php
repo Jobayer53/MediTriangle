@@ -39,7 +39,7 @@
 <div class="container-fluid">
     <div class="container mt-3 py-5">
        <div class="row justify-content-around">
-        <div class="col-lg-4 mb-4 px-2   ">
+        {{-- <div class="col-lg-4 mb-4 px-2   ">
             <div class="bg-light rounded ">
                 <div class="position-relative">
                     <img class="img-fluid rounded-top w-100 shadow-sm " src="{{ asset('frontend/img/price-1.jpg') }}" alt="">
@@ -60,8 +60,8 @@
                 </div>
             </div>
 
-        </div>
-        <div class="col-lg-6  ">
+        </div> --}}
+        <div class="col-lg-8  ">
             <div class="card">
                 <div class="card-header " style="background-color: #1d2a4d;">
                     <h3 class="text-white">Apply Now</h3>

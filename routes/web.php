@@ -200,7 +200,7 @@ Route::group(['middleware' => 'admin_model'],function(){
     Route::get('/user/health-card/application',[HealthCardController::class, 'healthCardData'])->name('health.card.data');
     Route::get('/user/health-card/application/edit/{id}',[HealthCardController::class, 'healthCardDataEdit'])->name('health.card.edit');
     Route::post('/user/health-card/application/update',[HealthCardController::class, 'healthCardDataUpdate'])->name('health.card.update');
-
+    
     //Order Medicine Manage
     Route::get('/medicine/link',[AdminMedicineController::class, 'link'])->name('admin.medicine.link');
     Route::get('/medicine/watch/{id}',[AdminMedicineController::class, 'medicineWatch'])->name('medicine.watch');

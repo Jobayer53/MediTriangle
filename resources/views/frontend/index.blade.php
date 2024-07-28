@@ -1,4 +1,13 @@
 @extends('frontend.config.app')
+@section('style')
+<link rel="stylesheet" href="{{asset('frontend/css/deloma-slider.css')}}">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<style>
+    .prev , .next{
+        color:white !important;
+    }
+</style>
+@endsection
 
 @section('content')
 
@@ -208,25 +217,42 @@
             <h5 class="d-inline-block text-primary text-uppercase  border-5 px-2" style="background-color: #ddd">Health Card</h5>
             <h1 class="">Awesome Medical Programs</h1>
         </div>
+
         <div class=" col-lg-5 col-md-12 custom-p m-auto" style="padding: 0 45px 45px 45px;">
             @if ($healths )
-            <div class="bg-light rounded text-center">
+            <div class="bg-light rounded ">
                 <div class="position-relative">
-                    <img class="img-fluid rounded-top" src="{{ asset('frontend/img/price-1.jpg') }}" alt="">
-                    <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center" style="background: rgba(29, 42, 77, .8);">
+                    <div class="slideshow-container">
+                        <div class="mySlides ">
+                            <img fetchPriority="high" class="img-fluid rounded-top " width="100%" height="auto" src="{{asset('uploads/healthcard/'.$healths->image_first.'')}}" alt="">
+                        </div>
+                        <div class="mySlides ">
+                            <img fetchPriority="high" class="img-fluid rounded-top  " width="100%" height="auto" src="{{asset('uploads/healthcard/'.$healths->image_second.'')}}" alt="">
+                        </div>
+                        <a class="prev" onclick="plusSlides(-1)">❮</a>
+                        <a class="next" onclick="plusSlides(1)">❯</a>
+                    </div>
+
+                    {{-- <img fetchPriority="high" class="img-fluid rounded-top " width="100%" height="auto" src="{{asset('uploads/healthcard/'.$healths->image_first.'')}}" alt=""> --}}
+                    <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center" style="background: rgb(15 24 49 / 43%);">
                         <h3 class="text-white">{{$healths->name}}</h3>
                         <h1 class="display-4 text-white mb-0">
                             <small class="align-top fw-normal" style="font-size: 22px; line-height: 45px;">৳</small>{{$healths->price}}<small class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/ Year</small>
                         </h1>
                     </div>
                 </div>
-                <div class="text-center py-5 ">
-                    @foreach(json_decode($healths->benifits) as $index => $benifit)
+                <div class="text-center pt-5 pb-4 ">
+                    <ul style="text-align: justify; list-style-type:none;">
+
+                        @foreach(json_decode($healths->benifits) as $index => $benifit)
                         @if ($benifit !== null)
-                            <p> {{$benifit}} </p>
+                        <li>
+                            <i class="fa fa-check text-success me-1" ></i>
+                             {{$benifit}} </li>
                         @endif
-                    @endforeach
-                    <a href="{{route('health.card')}}" class="btn btn-primary rounded-pill py-3 px-5 my-2">Apply Now</a>
+                        @endforeach
+                    </ul>
+                    <a href="{{route('health.card')}}" class="btn btn-primary rounded-pill py-2 px-3 ">Apply Now</a>
                 </div>
             </div>
             @endif
@@ -240,20 +266,20 @@
 <div class="container-fluid py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">How We Work</h5>
-            <h1 class="display-4">How We Work</h1>
+            <h5 class="d-inline-block text-primary text-uppercase  border-5 px-2" style="background-color: #ddd">How We Work</h5>
+            <h1 class="">How We Work</h1>
         </div>
         <div class="image_block">
-            <img src="{{ asset('website-template-preview-347911.jpg') }}" alt="" srcset="" style="width: 100%">
+            <img src="{{ asset('uploads/about/'.$about?->photo) }}" alt="" srcset="" style="width: 100%">
         </div>
-        <div >
+        <div class="mt-5" >
            <video class="w-100"
            autoplay
            muted
            loop
            playsinline
            >
-           <source src="{{ asset('uploads/video/demo.mp4') }} " type="video/mp4">
+           <source src="{{ asset('uploads/about/'.$about?->video) }} " type="video/mp4">
         </video>
         </div>
     </div>
@@ -264,23 +290,8 @@
 
 @endsection
 @section('script')
-    <script>
-        $('.owl-carousel').owlCarousel({
-    loop:true,
-    margin:10,
-    nav:true,
-    responsive:{
-        0:{
-            items:1
-        },
-        600:{
-            items:3
-        },
-        1000:{
-            items:5
-        }
-    }
-})
-    </script>
+
+
+<script defer="defer" type="text/javascript" src="{{asset('frontend/js/deloma-slider.js')}}"></script>
 
 @endsection

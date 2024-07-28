@@ -185,6 +185,20 @@
     .brandlogo{
         width: 150px;
     }
+    .text-lg-start{
+        font-size: small !important;
+    }
+
+
+}
+@media (max-width: 788px) {
+
+    .text-lg-end{
+        display: none !important;
+    }
+    .text-lg-start{
+        font-size: small !important;
+    }
 }
 
 @media (min-width: 576px) {
@@ -211,6 +225,9 @@
     }
     .custom-p {
         padding: 0 !important;
+    }
+    .text-lg-start{
+        font-size: small !important;
     }
 
 }

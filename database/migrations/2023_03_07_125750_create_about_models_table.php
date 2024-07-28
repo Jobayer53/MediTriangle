@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('about_models', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->longText('description');
-            $table->string('photo');
+            $table->string('title')->nullable();
+            $table->longText('description')->nullable();
+            $table->string('photo')->nullable();
+            $table->string('video')->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
         });

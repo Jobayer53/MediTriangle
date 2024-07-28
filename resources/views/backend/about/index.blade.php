@@ -66,13 +66,13 @@
     <div class="layout-specing">
         <div class="row mb-3">
             <div class="d-md-flex justify-content-between">
-                <h5 class="mb-0">About</h5>
+                <h5 class="mb-0">How We Work</h5>
 
                 <nav aria-label="breadcrumb" class="d-inline-block mt-4 mt-sm-0">
                     <ul class="breadcrumb bg-transparent rounded mb-0 p-0">
                         <li class="breadcrumb-item"><a href="{{ route('d.service') }}">Dashboard</a></li><i style="font-size:12px;padding-left:6px" class="fa-solid fa-chevron-right"></i>
                         <li class="breadcrumb-item active" aria-current="page">Owner</li><i style="font-size:12px;padding-left:6px" class="fa-solid fa-chevron-right"></i>
-                        <li class="breadcrumb-item active" aria-current="page">About</li>
+                        <li class="breadcrumb-item active" aria-current="page">How we work</li>
                     </ul>
                 </nav>
             </div>
@@ -85,18 +85,23 @@
                     <form action="{{ route('d.about.store') }}" method="POST" class="mt-4" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <div class="col-md-12">
-                                <x-input label="Photo" name="photo" type="file" placeholder="" />
+                            <div class="col-md-12 mb-3">
+                                <label for="" class="from-label">Photo</label>
+                                <input class="form-control" name="photo" type="file" placeholder=""  accept="image/*" />
+                            </div>
+                            <div class="col-md-12 mb-4">
+                                <label for="" class="from-label">Video</label>
+                                <input class="form-control" name="video" type="file" placeholder=""  accept="video/*" />
                             </div>
 
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <x-input label="Title" name="title" type="text" placeholder="" />
                             </div>
 
                             <div class="col-md-12 mb-3">
                                 <label for="" class="form-label">Description</label>
                                 <textarea name="description" class="form-control @error('description') is-invalid @enderror" type="text" rows="5"></textarea>
-                            </div>
+                            </div> --}}
                         <button type="submit" class="btn btn-primary">Add</button>
                         </div>
                     </form>
@@ -111,9 +116,9 @@
                             <thead>
                                 <tr>
                                     <th class="border-bottom p-3">Photo</th>
-                                    <th class="border-bottom p-3">title</th>
-                                    <th class="border-bottom p-3"  style="min-width: 180px;">Description</th>
-                                    <th class="border-bottom p-3">Status</th>
+                                    <th class="border-bottom p-3">Video</th>
+                                    {{-- <th class="border-bottom p-3"  style="min-width: 180px;">Description</th> --}}
+                                    {{-- <th class="border-bottom p-3">Status</th> --}}
                                     @if (Auth::guard('admin_model')->user()->can('edit') || Auth::guard('admin_model')->user()->can('delete'))
                                     <th class="border-bottom p-3 text-center" style="min-width: 100px;">Action</th>
                                     @else
@@ -125,16 +130,18 @@
                             <tbody>
                                 @foreach ($datas as $data)
                                 <tr>
-                                    <td><img style="width: 100px" src="{{ asset('uploads/about/'.$data->photo) }}" alt=""></td>
-                                    <td>{{ $data->title }}</td>
-                                    <td class="desLimit">{{$data->description }}</td>
-                                    <td><span class="badge bg-soft-{{ $data->status == 0?'danger':'success' }}">{{ $data->status == 0 ?'Deactive':'active' }}</span></td>
-                                    <td class="text-end">
-                                        @if (Auth::guard('admin_model')->user()->can('edit'))
+                                    <td><img style="width: 150px" src="{{ asset('uploads/about/'.$data->photo) }}" alt=""></td>
+                                    <td>
+                                        <video width="70%" height="100px" controls src="{{ asset('uploads/about/'.$data->video) }}"></video>
+                                    </td>
+                                    {{-- <td class="desLimit">{{$data->description }}</td> --}}
+                                    {{-- <td><span class="badge bg-soft-{{ $data->status == 0?'danger':'success' }}">{{ $data->status == 0 ?'Deactive':'active' }}</span></td>--}}
+                                    <td class="text-center">
+                                        {{-- @if (Auth::guard('admin_model')->user()->can('edit'))
                                         <a href="{{ $data->id }}" class="update_value btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#appointmentform"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        @endif
+                                        @endif --}}
                                         @if (Auth::guard('admin_model')->user()->can('delete'))
-                                        <a href="{{ route('about.delete',$data->id) }}" data-bs-toggle="modal" data-bs-target="#LoginForm"  class="delete_value btn btn-icon btn-pills btn-soft-danger"><i class="fa-solid fa-trash"></i></a>
+                                        <a href="{{ route('about.delete',$data->id) }}" data-bs-toggle="modal" data-bs-target="#LoginForm"  class="delete_value btn btn-icon btn-pills btn-soft-danger" id="deletebtn" ><i class="fa-solid fa-trash"></i></a>
                                         @endif
                                     </td>
                                 </tr>
@@ -176,7 +183,7 @@
 
 <script>
     $(document).ready(function(){
-        $(".btn").click(function(){
+        $("#deletebtn").click(function(){
             var val = $(this).attr('href');
             $('#delete_confirm').attr('href', val);
         });

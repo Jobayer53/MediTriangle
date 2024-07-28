@@ -52,7 +52,7 @@
 
 <body>
     {{--  Topbar Start   --}}
-    <div class="container-fluid py-2 border-bottom d-none d-lg-block " style="background-color: #1475A5;position:sticky;top:0;z-index:100">
+    <div class="container-fluid py-2 border-bottom   d-lg-block " style="background-color: #1475A5;position:sticky;top:0;z-index:100">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">

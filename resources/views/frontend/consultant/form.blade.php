@@ -117,7 +117,7 @@
         <div class="row justify-content-md-center">
             <div class="col-lg-8">
                 <div class="bg-light text-center rounded p-4">
-                    <h1 class="mb-5">Video Consultation</h1>
+                    <h1 class="mb-5">Doctor Video Consultation</h1>
                     <hr>
                     <form action="{{ route('video.consultant.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf

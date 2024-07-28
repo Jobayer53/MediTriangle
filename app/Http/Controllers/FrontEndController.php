@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\HealthCard;
 use App\Models\DoctorModel;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\HospitalModel;
 use App\Models\DepartmentModel;
@@ -87,6 +88,7 @@ class FrontEndController extends Controller
         return view('frontend.health-card.index',compact('healths'));
     }
     function healthCardStore(Request $request){
+
         $request->validate([
             'name' => 'required',
             'number' => 'required|numeric|digits:11',
@@ -111,6 +113,7 @@ class FrontEndController extends Controller
             $application->number = $request->number;
             $application->address = $request->address;
             $application->passport_nid = $request->pass_nid_number;
+            $application->slug = 'MT-' . substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'), 0, 6);
             $application->status = "PROCESSING";
             $application->save();
             return redirect(route('thank.you'));
@@ -120,11 +123,12 @@ class FrontEndController extends Controller
             $application->name = $request->name;
             $application->number = $request->number;
             $application->address = $request->address;
+            $application->slug = 'MT-' . substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'), 0, 6);
             $application->status = "PROCESSING";
             $application->save();
             return redirect(route('thank.you'));
         }
-       return back();
+    //    return back();
     }
     public function hospitalDetails($slug){
         $hospital = HospitalModel::where('slug',$slug)->first();

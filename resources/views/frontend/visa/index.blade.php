@@ -149,7 +149,7 @@
     <div class="row ">
         <div class="col-lg-10 m-auto">
             <div class="card">
-                <div class="card-header " style="background-color: #1d2a4d;">
+                <div class="card-header text-center  " style="background-color: #1d2a4d;">
                     <h3 class="text-white">Visa Invitation Form</h3>
                 </div>
                 <form action="{{ route('store.visa') }}" method="POST" enctype="multipart/form-data">
