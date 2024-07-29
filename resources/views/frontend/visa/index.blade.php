@@ -161,8 +161,8 @@
                         </div>
                         <div class="row mb-3">
                             <div class=" col-6 mb-3 form-group ">
-                                <label  class="form-label ">Email</label>
-                                <input type="text" class="form-control input-default " name="email" placeholder="" >
+                                <label  class="form-label ">Email <span class="text-danger">*</span> </label>
+                                <input type="text" class="form-control input-default " name="email" placeholder="" required  >
                             </div>
                             <div class="col-6 mb-3 form-group">
                                 <label  class="form-label form-label">Phone Number</label><span class="text-danger">*</span>
@@ -178,7 +178,7 @@
                         <div class=" mb-4 ">
                             <p id="size2" style="position: absolute; top:59%; right:5%; z-index: 999;font-size: 11px"></p>
                             <label  class="form-label "> Medical Report</label><span class="text-danger">*</span > <span style="color: #f9a7a7; font-size:10px; ">(PDF ONLY)</span>
-                            <input id="myFile2" type="file" class="form-control input-default" name="prescription"   placeholder=""  multiple>
+                            <input id="myFile2" type="file" class="form-control input-default" name="prescription"   placeholder=""    accept="application/pdf">
                             @error('prescription')
                                 <span class="text-sm text-danger"> {{$message}} </span>
                             @enderror
@@ -198,7 +198,7 @@
                             </div>
                             <div class="col-4 ">
                                 <label for="" class="form-label" > Passport Copy <span style="color: #f9a7a7; font-size:10px; ">(IMAGE ONLY)</span> </label>
-                                <input  type="file"   name="attendantPassport[]" class="form-control bg-white input-default  @error('attendantPassport.*') is-invalid @enderror">
+                                <input  type="file"   name="attendantPassport[]" class="form-control bg-white input-default  @error('attendantPassport.*') is-invalid @enderror" accept="image/*" placeholder="passport copy">
                             </div>
 
                         </div>

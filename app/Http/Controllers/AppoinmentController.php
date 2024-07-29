@@ -2,70 +2,77 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AppoinmentModel;
-use App\Models\AppoinmentReports;
-use App\Models\attendant;
-use App\Models\DoctorModel;
-use App\Models\User;
-use App\Notifications\DoctorAppointment;
+use Image;
+use Photo;
 use ArrayIterator;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Image;
+use App\Models\User;
 use MultipleIterator;
-use Photo;
+use App\Models\attendant;
+use App\Models\DoctorModel;
+use Illuminate\Http\Request;
+use App\Models\AppoinmentModel;
+use App\Models\AppoinmentReports;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\DoctorAppointment;
+use Illuminate\Support\Facades\Notification;
 
 class AppoinmentController extends Controller
 {
     function appoinmentStore(Request $request){
-        // $order_id ='#OR'.rand(1,5000).'DER'.rand(1,500);
-        // if($request->email!= null){
-        //     $request->validate([
-        //         'country_id' => 'required',
-        //         'state_id' => 'required',
-        //         'hospital_id' => 'required',
-        //         'department_id' => 'required',
-        //         'name' => 'required',
-        //         'email' => 'required|email',
-        //         'phone' => 'required|numeric|digits:11',
-        //     ],[
-        //         'phone'=>'Input Phone Number!',
-        //         'email'=>'Input Email!',
-        //         'email.email'=>'Input Valid Email Address!',
-        //         'phone.numeric'=>'Please Input Numebr Type!',
-        //         'phone.digits'=>'Number Should Be 11 Digits!',
-        //     ]);
-        // }
-        // else{
-        //     $request->validate([
-        //         'country_id' => 'required',
-        //         'state_id' => 'required',
-        //         'hospital_id' => 'required',
-        //         'department_id' => 'required',
-        //         'name' => 'required',
-        //         'phone' => 'required|numeric|digits:11',
-        //     ],[
-        //         'phone'=>'Input Phone Number!',
-        //         'phone.numeric'=>'Please Input Numebr Type!',
-        //         'phone.digits'=>'Number Should Be 11 Digits!',
-        //     ]);
-        // }
+        $order_id ='#OR'.rand(1,5000).'DER'.rand(1,500);
+        if($request->email!= null){
+            $request->validate([
+                'country_id' => 'required',
+                'state_id' => 'required',
+                'hospital_id' => 'required',
+                'department_id' => 'required',
+                'name' => 'required',
+                'email' => 'required|email',
+                'phone' => 'required|numeric|digits:11',
+            ],[
+                'phone'=>'Input Phone Number!',
+                'email'=>'Input Email!',
+                'email.email'=>'Input Valid Email Address!',
+                'phone.numeric'=>'Please Input Numebr Type!',
+                'phone.digits'=>'Number Should Be 11 Digits!',
+            ]);
+        }
+        else{
+            $request->validate([
+                'country_id' => 'required',
+                'state_id' => 'required',
+                'hospital_id' => 'required',
+                'department_id' => 'required',
+                'name' => 'required',
+                'phone' => 'required|numeric|digits:11',
+            ],[
+                'phone'=>'Input Phone Number!',
+                'phone.numeric'=>'Please Input Numebr Type!',
+                'phone.digits'=>'Number Should Be 11 Digits!',
+            ]);
+        }
 
 
-        // $appoinment = new AppoinmentModel();
-        //     $appoinment->country_id = $request->country_id;
-        //     $appoinment->state_id = $request->state_id;
-        //     $appoinment->hospital_id = $request->hospital_id;
-        //     $appoinment->department_id = $request->department_id;
-        //     $appoinment->name = $request->name;
-        //     $appoinment->number = $request->phone;
-        //     $appoinment->email = $request->email? $request->email:null;
-        //     $appoinment->status = "PROCESSING";
-        //     $appoinment->save();
-        $admin = Auth::guard('admin_model')->user();
-        $message = 'this is message';
-        $admin->notify(new DoctorAppointment($message));
+        $appoinment = new AppoinmentModel();
+            $appoinment->country_id = $request->country_id;
+            $appoinment->state_id = $request->state_id;
+            $appoinment->hospital_id = $request->hospital_id;
+            $appoinment->department_id = $request->department_id;
+            $appoinment->name = $request->name;
+            $appoinment->number = $request->phone;
+            $appoinment->email = $request->email? $request->email:null;
+            $appoinment->status = "PROCESSING";
+            $appoinment->save();
+        $adminEmails = [
+            'admin1@example.com',
+            // Add more admin emails as needed
+        ];
+        $messageAdmin = 'New appoinment requested! Take a look.';
+        $messageUser = 'Thank you for your appoinment. We will contact you soon.';
+        Notification::route('mail', $adminEmails)->notify(new DoctorAppointment($messageAdmin,true));
+        Notification::route('mail', $request->email)?->notify(new DoctorAppointment($messageUser, false));
+
         return redirect(route('thank.you'));
         // //Attendant
         // if ($request->hasFile('attendantPassport')) {

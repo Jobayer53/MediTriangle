@@ -10,11 +10,13 @@ use Illuminate\Http\Request;
 use App\Models\HospitalModel;
 use App\Models\DepartmentModel;
 use App\Models\HealthCardApplicaton;
+use App\Notifications\HealthCard as NotificationsHealthCard;
 use Illuminate\Support\Facades\Auth;
 use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\OpenGraph;
+use Illuminate\Support\Facades\Notification;
 
 class FrontEndController extends Controller
 {
@@ -88,7 +90,7 @@ class FrontEndController extends Controller
         return view('frontend.health-card.index',compact('healths'));
     }
     function healthCardStore(Request $request){
-
+      
         $request->validate([
             'name' => 'required',
             'number' => 'required|numeric|digits:11',
@@ -116,7 +118,7 @@ class FrontEndController extends Controller
             $application->slug = 'MT-' . substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'), 0, 6);
             $application->status = "PROCESSING";
             $application->save();
-            return redirect(route('thank.you'));
+
 
         }else{
             $application = new HealthCardApplicaton();
@@ -126,9 +128,17 @@ class FrontEndController extends Controller
             $application->slug = 'MT-' . substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'), 0, 6);
             $application->status = "PROCESSING";
             $application->save();
-            return redirect(route('thank.you'));
+
         }
-    //    return back();
+        $adminEmails = [
+            'admin1@example.com',
+            // Add more admin emails as needed
+        ];
+        $messageAdmin = 'New health card requested! Take a look.';
+        // $messageUser = 'Thank you for your health card request. We will contact you soon.';
+        Notification::route('mail', $adminEmails)->notify(new NotificationsHealthCard($messageAdmin,true));
+        // Notification::route('mail', $request->email)?->notify(new NotificationsHealthCard($messageUser, false));
+        return redirect(route('thank.you'));
     }
     public function hospitalDetails($slug){
         $hospital = HospitalModel::where('slug',$slug)->first();

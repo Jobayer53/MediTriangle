@@ -7,17 +7,18 @@ use Photo;
 use ArrayIterator;
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\VideoConsultAttendant;
 use MultipleIterator;
 use App\Models\VisaModel;
 use Illuminate\Http\Request;
 use App\Models\VisaModelResport;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\VideoConsultAttendant;
+use App\Notifications\VisaInvitation;
+use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\OpenGraph;
-use Artesaos\SEOTools\Facades\JsonLd;
+use Illuminate\Support\Facades\Notification;
 
 class VisaController extends Controller
 {
@@ -31,7 +32,8 @@ class VisaController extends Controller
     }
     function visaStore(Request $request){
 
-dd(round(($request->file('passport')->getSize()) / 1024) / 1024, 2);
+
+
         $order_id ='#OR'.rand(1,5000).'DER'.rand(1,500);
         $fee = 2500;
         $request->validate([
@@ -95,30 +97,32 @@ dd(round(($request->file('passport')->getSize()) / 1024) / 1024, 2);
         ]);
 
         // //Attendant
-        if ($request->attendantName) {
+        if ($request->attendantName[0] != null) {
             $request->validate([
-                'attendantName.*' => 'required',
                 'attendantPassportNumber.*' => 'required',
-                'attendantPassport.*' => 'required|mimes:jpeg,png,jpg',
+
             ]);
+            if($request->attendantPassport){
+                // dd($request->attendantPassport);
+                $mi = new MultipleIterator();
+                $mi->attachIterator(new ArrayIterator($request->attendantName));
+                $mi->attachIterator(new ArrayIterator($request->attendantPassportNumber));
+                $mi->attachIterator(new ArrayIterator($request->attendantPassport));
+                foreach ($mi as list($name, $number, $photo) ) {
+                    $make = $photo;
+                    $extn = $make->getClientOriginalExtension();
+                    $profileName = 'PRO'.rand(1,2000).'FILE'.rand(1,500).'.'. $extn;
+                    $attendant = new VideoConsultAttendant();
+                        $attendant->order_id  = $order_id;
+                        $attendant->name  = $name;
+                        $attendant->number  = $number;
+                        $attendant->passport  = $profileName;
+                        $attendant->save();
 
-            // dd($request->attendantPassport);
-            $mi = new MultipleIterator();
-            $mi->attachIterator(new ArrayIterator($request->attendantName));
-            $mi->attachIterator(new ArrayIterator($request->attendantPassportNumber));
-            $mi->attachIterator(new ArrayIterator($request->attendantPassport));
-            foreach ($mi as list($name, $number, $photo) ) {
-                $make = $photo;
-                $extn = $make->getClientOriginalExtension();
-                $profileName = 'PRO'.rand(1,2000).'FILE'.rand(1,500).'.'. $extn;
-                 $attendant = new VideoConsultAttendant();
-                    $attendant->order_id  = $order_id;
-                    $attendant->name  = $name;
-                    $attendant->number  = $number;
-                    $attendant->passport  = $profileName;
-                    $attendant->save();
-
-                Image::make($make)->save(public_path('uploads/attendant/'.$profileName));
+                    Image::make($make)->save(public_path('uploads/attendant/'.$profileName));
+                }
+            }else{
+                return back()->with('err', 'Please Add Attendent Passport');
             }
         }
 
@@ -131,6 +135,16 @@ dd(round(($request->file('passport')->getSize()) / 1024) / 1024, 2);
             'passport'           => Photo::$name,
             'created_at'         => Carbon::now(),
         ]);
+
+        $adminEmails = [
+            'admin1@example.com',
+            // Add more admin emails as needed
+        ];
+        $messageAdmin = 'New visa invitation requested! Take a look.';
+        $messageUser = 'Thank you for your visa invitation request. We will contact you soon.';
+        Notification::route('mail', $adminEmails)->notify(new VisaInvitation($messageAdmin,true));
+        Notification::route('mail', $request->email)->notify(new VisaInvitation($messageUser, false));
+
          return redirect(route('thank.you'));
         // $data = array("id"=>Auth::user()->id, "amount"=>$fee,'order_id'=>$order_id);
         // $data = array("id"=>Auth::user()->id, "amount"=>$fee,'order_id'=>$order_id,'type' => 'visa');

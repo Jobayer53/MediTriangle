@@ -7,11 +7,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class DoctorAppointment extends Notification
+class VisaInvitation extends Notification
 {
     use Queueable;
-    protected $message;
-    protected $isAdmin;
+
+    private $message;
+    private $isAdmin;
     /**
      * Create a new notification instance.
      */
@@ -37,10 +38,10 @@ class DoctorAppointment extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         $mailMessage = (new MailMessage)
-                        ->line('Doctor Appointment')
+                        ->line('Health Card')
                         ->line($this->message);
                         if ($this->isAdmin) {
-                        $mailMessage->action('View', url('/user/data/appointment'));
+                        $mailMessage->action('View', url('/user/visaInvitaion'));
                         }
 
         return $mailMessage;

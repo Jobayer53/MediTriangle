@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DepartmentModel;
-use App\Models\DoctorModel;
-use App\Models\User;
-use App\Models\VideoConsultantModel;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Photo;
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\DoctorModel;
+use Illuminate\Http\Request;
+use App\Models\DepartmentModel;
+use App\Models\VideoConsultantModel;
+use App\Notifications\VideoConsultation;
+use Illuminate\Support\Facades\Auth;
+use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\OpenGraph;
-use Artesaos\SEOTools\Facades\JsonLd;
+use Illuminate\Support\Facades\Notification;
 
 
 class VideoConsultant extends Controller
@@ -131,6 +133,16 @@ class VideoConsultant extends Controller
         // $data = array("id"=>Auth::user()->id, "amount"=>$fee,'order_id'=>$order_id);
         // $data = array("id"=>Auth::user()->id, "amount"=>$fee,'order_id'=>$order_id,'type' => 'video');
         // return redirect()->route('pay')->with('data',$data);
+
+
+        $adminEmails = [
+            'admin1@example.com',
+            // Add more admin emails as needed
+        ];
+        $messageAdmin = 'New video consultation requested! Take a look.';
+        // $messageUser = 'Thank you for your video consultation request. We will contact you soon.';
+        Notification::route('mail', $adminEmails)->notify(new VideoConsultation($messageAdmin,true));
+        // Notification::route('mail', $request->email)?->notify(new VideoConsultation($messageUser, false));
         return redirect(route('thank.you'));
     }
 }
