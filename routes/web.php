@@ -30,6 +30,7 @@ use App\Http\Controllers\PdfDownlodController;
 use App\Http\Controllers\SocialMediaController;
 use App\Http\Controllers\AdminMedicineController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HealthCardController;
 use App\Http\Controllers\SslCommerzPaymentController;
 
@@ -64,9 +65,9 @@ Route::get('/profile/forget/password/verify/{token}',[ProfileController::class, 
 Route::post('/profile/forget/password/change/confirme',[ProfileController::class, 'forgetVerifyChangeConfirme'])->name('profile.forget.pass.change.confirme');
 
 //blog
-Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+Route::get('/blogs', [FrontEndController::class, 'blogIndex'])->name('blogs');
 Route::get('/view/{id}', [BlogController::class, 'index'])->name('blog.view');
-Route::get('/blogs', [BlogController::class, 'blogs'])->name('blog.all');
+// Route::get('/blogs', [BlogController::class, 'blogs'])->name('blog.all');
 // Route::get('/categories/{slugs}', [UserHomeController::class, 'category'])->name('category.view');
 // Route::get('/view', [UserHomeController::class, 'blog'])->name('blog.font');
 // Route::get('/about', [SiteController::class, 'about'])->name('about');
@@ -314,7 +315,12 @@ Route::group(['middleware' => 'admin_model'],function(){
     Route::resources([
         'embassy'  => EmbassyController::class,
         'visatype' => VisaType::class,
+        'category'  =>CategoryController::class,
+        'blog'      =>BlogController::class,
     ]);
+
+//blogbackend
+
 
 });
 // Route::any('/{any}', function () {

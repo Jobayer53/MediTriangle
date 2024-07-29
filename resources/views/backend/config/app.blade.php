@@ -14,7 +14,7 @@
         <!-- Bootstrap Css -->
         <link href="{{ asset('backend/css/bootstrap.min.css') }}" class="theme-opt" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
-        <link href="{{ asset('backend/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+        {{-- <link href="{{ asset('backend/css/icons.min.css') }}" rel="stylesheet" type="text/css" /> --}}
         <link href="{{ asset('backend/libs/remixicon/fonts/remixicon.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('backend/libs/%40iconscout/unicons/css/line.css') }}" type="text/css" rel="stylesheet" />
         <!-- Style Css-->
@@ -44,6 +44,7 @@
                }
             }
         </style>
+        @yield('sum-style')
     </head>
 
     <body>
@@ -106,6 +107,16 @@
                                     <li><a href="{{ route('owner.link') }}">Website Info</a></li>
                                     {{-- <li><a href="{{ route('embassy.index') }}">Embassy</a> </li> --}}
                                     {{-- <li><a href="{{ route('visatype.index') }}">Passport Type</a> </li> --}}
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="javascript:void(0)"><i style="margin-right:10px" class="fa-solid fa-database"></i> Blog </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                     <li><a href="{{ route('category.index') }}">Category</a></li>
+                                    <li><a href="{{ route('blog.index') }}">Blog</a></li>
+
                                 </ul>
                             </div>
                         </li>
@@ -310,10 +321,10 @@
         </div>
         <!-- page-wrapper -->
 
-
+        @yield('sum-script')
         <!-- javascript -->
         <script src="{{ asset('backend/libs/simplebar/simplebar.min.js') }}"></script>
-        <script src="{{ asset('backend/libs/apexcharts/apexcharts.min.js') }}"></script>
+        {{-- <script src="{{ asset('backend/libs/apexcharts/apexcharts.min.js') }}"></script> --}}
         <script src="{{ asset('backend/js/admin-apexchart.init.js') }}"></script>
         <script src="{{ asset('backend/libs/feather-icons/feather.min.js') }}"></script>
         <!-- Main Js -->

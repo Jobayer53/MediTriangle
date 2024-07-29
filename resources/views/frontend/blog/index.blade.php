@@ -75,7 +75,7 @@
 </style>
 @endsection
 @section('content')
-<section class="page-header py-4" style="background: #F1F8FF;">
+ {{--<section class="page-header py-4" style="background: #F1F8FF;">
     <div class="container-xl">
         <div class="text-center">
             <h1 class="mt-0 mb-2">Blogs</h1>
@@ -88,7 +88,7 @@
             </nav>
         </div>
     </div>
-</section>
+</section>--}}
 <div class="container-fluid py-5">
     <div class="container">
         <section class="main-content mt-3">

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\User;
+use App\Models\Category;
 use App\Models\HealthCard;
 use App\Models\DoctorModel;
 use Illuminate\Support\Str;
@@ -10,13 +12,13 @@ use Illuminate\Http\Request;
 use App\Models\HospitalModel;
 use App\Models\DepartmentModel;
 use App\Models\HealthCardApplicaton;
-use App\Notifications\HealthCard as NotificationsHealthCard;
 use Illuminate\Support\Facades\Auth;
 use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Illuminate\Support\Facades\Notification;
+use App\Notifications\HealthCard as NotificationsHealthCard;
 
 class FrontEndController extends Controller
 {
@@ -90,7 +92,7 @@ class FrontEndController extends Controller
         return view('frontend.health-card.index',compact('healths'));
     }
     function healthCardStore(Request $request){
-      
+
         $request->validate([
             'name' => 'required',
             'number' => 'required|numeric|digits:11',
@@ -169,7 +171,29 @@ class FrontEndController extends Controller
         return response()->json($doctors);
     }
 
+    public function blogIndex()
+    {
 
+
+        $category = Category::where('status', 'active')->get();
+
+        //getting most view alltime blog
+        $best = Blog::orderBy('view_count', 'desc')->take(4)->get();
+
+        //Recent
+        $recent = Blog::orderBy('id', 'desc')->take(4)->get();
+
+        //category product
+        $categoryBlog = Blog::where('status', 'active')->paginate(12);
+
+        return view('frontend.blog.index',[
+            'blogs'     => $categoryBlog,
+            'recent'    => $recent,
+            'bests'     => $best,
+            'cats'      => $category,
+        ]);
+        // }
+    }
     function hctc(){
         SEOMeta::setTitle('Health Card Terms And Conditions'); //web title
         SEOTools::setDescription('this is description');
