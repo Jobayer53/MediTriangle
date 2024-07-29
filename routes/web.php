@@ -29,6 +29,7 @@ use App\Http\Controllers\FindDoctorController;
 use App\Http\Controllers\PdfDownlodController;
 use App\Http\Controllers\SocialMediaController;
 use App\Http\Controllers\AdminMedicineController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HealthCardController;
 use App\Http\Controllers\SslCommerzPaymentController;
 
@@ -62,6 +63,17 @@ Route::post('/profile/forget/password/checkup',[ProfileController::class, 'forge
 Route::get('/profile/forget/password/verify/{token}',[ProfileController::class, 'forgetVerify'])->name('profile.forget.pass.verify');
 Route::post('/profile/forget/password/change/confirme',[ProfileController::class, 'forgetVerifyChangeConfirme'])->name('profile.forget.pass.change.confirme');
 
+//blog
+Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+Route::get('/view/{id}', [BlogController::class, 'index'])->name('blog.view');
+Route::get('/blogs', [BlogController::class, 'blogs'])->name('blog.all');
+// Route::get('/categories/{slugs}', [UserHomeController::class, 'category'])->name('category.view');
+// Route::get('/view', [UserHomeController::class, 'blog'])->name('blog.font');
+// Route::get('/about', [SiteController::class, 'about'])->name('about');
+// Route::get('/contact', [SiteController::class, 'contact'])->name('contact');
+// Route::get('/privacy', [SiteController::class, 'privacy'])->name('privacy');
+// Route::get('/search', [SearchController::class, 'search'])->name('search');
+// Route::get('/sitemap', [SitemapController::class, 'sitemap'])->name('sitemap');
 
 
 Route::group(['middleware' => 'auth'],function(){

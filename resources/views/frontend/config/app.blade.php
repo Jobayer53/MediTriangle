@@ -102,7 +102,7 @@
                         <a href="{{ route('link.visa') }}" class="nav-item nav-link {{ request()->routeIs('link.visa')? 'active' : '' }}">Visa Invitation Form</a>
                         {{-- <a href="{{ route('link.medicine') }}" class="nav-item nav-link">Medicine</a> --}}
                         <a href="{{route('health.card')}}" class="nav-item nav-link {{ request()->routeIs('health.card')? 'active' : '' }}">Health Card</a>
-                        <a href="#" class="nav-item nav-link {{ request()->routeIs()? 'active' : '' }}">Blog</a>
+                        <a href="{{route('blog')}}" class="nav-item nav-link {{ request()->routeIs()? 'active' : '' }}">Blog</a>
                         {{-- <a href="price.html" class="nav-item nav-link">Contact Us</a> --}}
                         {{-- <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Medicine</a>
