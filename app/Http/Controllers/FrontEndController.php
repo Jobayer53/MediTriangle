@@ -173,28 +173,42 @@ class FrontEndController extends Controller
 
     public function blogIndex()
     {
-
-
         $category = Category::where('status', 'active')->get();
-
         //getting most view alltime blog
-        $best = Blog::orderBy('view_count', 'desc')->take(4)->get();
-
+        // $best = Blog::orderBy('view_count', 'desc')->take(4)->get();
         //Recent
-        $recent = Blog::orderBy('id', 'desc')->take(4)->get();
-
+        // $recent = Blog::orderBy('id', 'desc')->take(4)->get();
         //category product
-        $categoryBlog = Blog::where('status', 'active')->paginate(12);
-
-
-
+        $categoryBlog = Blog::where('status', 'active')->paginate(8);
         return view('frontend.blog.index',[
             'blogs'     => $categoryBlog,
-            'recent'    => $recent,
-            'bests'     => $best,
+            // 'recent'    => $recent,
+            // 'bests'     => $best,
             'cats'      => $category,
         ]);
-        // }
+
+    }
+    public function blog_category_show($slug)
+    {
+        $cat = Category::query()->select('slug', 'id','name')->where('slug',$slug)->where('status', 'active')->first();
+        $category = Category::where('status', 'active')->get();
+        // $category = Category::where('slug',$slug)->where('status', 'active')->get();
+        //getting most view alltime blog
+        // $best = Blog::orderBy('view_count', 'desc')->take(4)->get();
+        //Recent
+        // $recent = Blog::orderBy('id', 'desc')->take(4)->get();
+        //category product
+        $categoryBlog = Blog::where('category_id',$cat->id)->where('status', 'active')->paginate(8);
+
+
+        // where('status', 'active')->paginate(8);
+        return view('frontend.blog.index',[
+            'blogs'     => $categoryBlog,
+            // 'recent'    => $recent,
+            // 'bests'     => $best,
+            'cats'      => $category,
+        ]);
+
     }
     public function blog_view($slug){
         $blog = Blog::where('slug', $slug)->first();
@@ -204,41 +218,28 @@ class FrontEndController extends Controller
         $related = Blog::where('category_id', $blog->category_id)->where('id', '!=', $blog->id)->orderBy('created_at', 'desc')->take(4)->get();
 
         //getting most view alltime blog
-        $best = Blog::orderBy('view_count', 'desc')->take(4)->get();
+        // $best = Blog::orderBy('view_count', 'desc')->take(4)->get();
 
         //Recent
-        $recent = Blog::orderBy('id', 'desc')->take(4)->get();
+        // $recent = Blog::orderBy('id', 'desc')->take(4)->get();
 
         if ($blog) {
             //incerement view count
             $blog->increment('view_count');
             $blog->save();
 
-            //seo
-            $img = null;
-            $url = null;
-            $name = null;
-
-
-
-
-
-     
-
-
-
-
             return view('frontend.blog.blog-preview', [
                 'blog'      => $blog,
                 'related'   => $related,
-                'recent'    => $recent,
-                'bests'     => $best,
+                // 'recent'    => $recent,
+                // 'bests'     => $best,
                 'cats'      => $category,
             ]);
         } else {
             return back();
         }
     }
+
     function hctc(){
         SEOMeta::setTitle('Health Card Terms And Conditions'); //web title
         SEOTools::setDescription('this is description');

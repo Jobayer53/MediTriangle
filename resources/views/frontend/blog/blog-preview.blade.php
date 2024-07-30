@@ -151,7 +151,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-items"><a href="{{route('blogs')}}">Home</a></li><span class="breadcrumb-breaker">/</span>
-                <li class="breadcrumb-items"><a href="#">Inspiration</a></li><span
+                <li class="breadcrumb-items"><a href="#">Blogs</a></li><span
                     class="breadcrumb-breaker">/</span>
                 <li class="breadcrumb-items active" aria-current="page">{{ $blog->title }}</li>
             </ol>
@@ -173,7 +173,13 @@
                         </ul>
                     </div>
                     <div class="post-header mb-4">
-                        <img width="100%" height="50%" src="{{asset('frontend/blog/'.$blog->image)}}" alt="">
+                        @if ($blog->image)
+
+                        <img width="85%" height="700px" src="{{asset('frontend/blog/'.$blog->image)}}" alt="">
+                        @else
+                        <img width="75%" height="700px" src="{{asset('image-not-found.avif')}}" alt="">
+
+                        @endif
                     </div>
                     <!-- post content -->
                     <div class="post-content clearfix">
@@ -265,7 +271,38 @@
                 <div class="row gy-5">
                     @foreach ($related as $blog)
                         <div class="col-lg-6 mb-2">
-                            {{-- <x-blog-main :blog="$blog" /> --}}
+                            <div class="card bd-card p-1 position-relative shadow-sm rounded bd-font">
+
+                                <div class="card-body">
+                                    <div class="row">
+                                        @if($blog->image)
+                                        <img  style="width:100%; height:220px;" src="{{ asset('frontend/blog/'.$blog->image) }}">
+                                        @else
+                                        <img style="width:100%; height:220px;" src="{{ asset('image-not-found.avif') }}">
+                                        @endif
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="{{ route('blog_view', $blog->slug) }}">
+                                                <h5 class="fw-bolder bd-font mt-1">{{ $blog->title }}</h5>
+                                            </a>
+                                            <p class="text-secondary mt-3">
+                                                {{ $blog->description() }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="font-size: 13px">
+                                        <div class="col-6 text-secondary">
+                                            by <span class="text-uppercase fw-bolder">{{ $blog->author }}</span>
+                                        </div>
+                                        <div class="col-6 fw-bolder" style="text-align: end">
+                                            <p class="text-secondary"><span style="padding-right: 3px"><img
+                                                        src="{{ asset('Themes/Theme1/images/eyebig.svg') }}"
+                                                        alt=""></span>{{ number_format($blog->view_count) }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     @endforeach
                 </div>

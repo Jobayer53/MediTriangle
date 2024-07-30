@@ -99,9 +99,7 @@
             <form action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="">
-                    @if (session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif
+
 
                     <div class="">
 

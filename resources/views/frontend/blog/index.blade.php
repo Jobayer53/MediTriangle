@@ -108,15 +108,15 @@
                                     <div class="card-body">
                                         <div class="row">
                                             @if($blog->image)
-                                            <img src="{{ asset('frontend/blog/'.$blog->image) }}">
+                                            <img  style="width:100%; height:220px;" src="{{ asset('frontend/blog/'.$blog->image) }}">
                                             @else
-                                            <img height="30%" src="{{ asset('image-not-found.avif') }}">
+                                            <img style="width:100%; height:220px;" src="{{ asset('image-not-found.avif') }}">
                                             @endif
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <a href="{{ route('blog_view', $blog->slug) }}">
-                                                    <h5 class="fw-bolder bd-font">{{ $blog->title }}</h5>
+                                                    <h5 class="fw-bolder bd-font mt-1">{{ $blog->title }}</h5>
                                                 </a>
                                                 <p class="text-secondary mt-3">
                                                     {{ $blog->description() }}
@@ -153,7 +153,7 @@
                         <div class="spacer" data-height="50" style="height: 30px;"></div>
 
                         <div class="row">
-                            {{ $blogs->links('pagination::bootstrap-4') }}
+                            {{ $blogs->links('pagination::bootstrap-5') }}
                         </div>
 
 
@@ -163,78 +163,29 @@
                     <div class="col-lg-4">
                         <div class="widget rounded">
                             <div class="widget-header text-center">
-                               <h3 class="widget-title bd-font">চিরকাল বিখ্যাত</h3>
-                               <img src="https://rupkotha.bn.synexdigital.com/Themes/Theme1/images/wave.svg" class="wave" alt="wave">
+                               <h3 class="widget-title bd-font">Category</h3>
+                               <svg xmlns="http://www.w3.org/2000/svg" width="33" height="6" style="filter: invert(0);">
+                                <defs>
+                                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#FE4F70"/>
+                                        <stop offset="100%" stop-color="#FFA387"/>
+                                    </linearGradient>
+                                    </defs>
+                                <path d="M33 1c-3.3 0-3.3 4-6.598 4C23.1 5 23.1 1 19.8 1c-3.3 0-3.3 4-6.599 4-3.3 0-3.3-4-6.6-4S3.303 5 0 5" stroke="url(#gradient)" stroke-width="2" fill="none"/>
+                            </svg>
                             </div>
                             <div class="widget-content">
                                <!-- post -->
                                <div class="post post-list-sm circle">
-                                  <div class="thumb circle">
-                                     <a href="https://rupkotha.bn.synexdigital.com/view/parsonal-brzanding-ken-drkar">
-                                        <div class="inner">
-                                           <span class="inner-text bd-font">১</span>
-                                        </div>
-                                     </a>
-                                  </div>
-                                  <div class="details clearfix">
-                                     <h6 class="post-title my-0 bd-font"><a href="https://rupkotha.bn.synexdigital.com/view/parsonal-brzanding-ken-drkar">পারসোনাল ব্র্যান্ডিং কেন দরকার?</a>
-                                     </h6>
-                                     <ul class="meta list-inline mt-1 mb-0">
-                                        <li class="list-inline-item">07 Jul 24</li>
-                                     </ul>
-                                  </div>
+                                <ul class="list-group list-group-flush">
+                                    @forelse ($cats as  $category)
+                                    <li class="list-group-item"><a href="{{ route('category_blog_show', $category->slug) }}" class="text text-dark">{{ $category->name }}</a></li>
+                                    @empty
+                                    <li class="list-group-item">No Data Found</li>
+                                    @endforelse
+                                  </ul>
                                </div>
-                               <!-- post -->
-                               <div class="post post-list-sm circle">
-                                  <div class="thumb circle">
-                                     <a href="https://rupkotha.bn.synexdigital.com/view/%E0%A6%A1%E0%A6%BF%E0%A6%B8%E0%A7%87%E0%A6%A8%E0%A7%8D%E0%A6%9F-%E0%A6%87%E0%A6%A8%E0%A6%9F%E0%A7%81-%E0%A6%AE%E0%A6%BE%E0%A6%87%E0%A6%B8%E0%A7%87%E0%A6%B2%E0%A6%AB-%E0%A6%9A%E0%A6%BF%E0%A6%95%E0%A6%BF%E0%A7%8E%E0%A6%B8%E0%A6%BE-%E0%A6%B8%E0%A6%BE%E0%A6%B9%E0%A6%BF%E0%A6%A4%E0%A7%8D%E0%A6%AF-%E0%A6%8F%E0%A6%AC%E0%A6%82-%E0%A6%86%E0%A6%A4%E0%A7%8D%E0%A6%AE%E0%A6%B8%E0%A6%AE%E0%A7%80%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A6%BE%E0%A6%B0-%E0%A6%B8%E0%A6%AE%E0%A7%80%E0%A6%95%E0%A6%B0%E0%A6%A3">
-                                        <div class="inner">
-                                           <span class="inner-text bd-font">২</span>
-                                        </div>
-                                     </a>
-                                  </div>
-                                  <div class="details clearfix">
-                                     <h6 class="post-title my-0 bd-font"><a href="https://rupkotha.bn.synexdigital.com/view/%E0%A6%A1%E0%A6%BF%E0%A6%B8%E0%A7%87%E0%A6%A8%E0%A7%8D%E0%A6%9F-%E0%A6%87%E0%A6%A8%E0%A6%9F%E0%A7%81-%E0%A6%AE%E0%A6%BE%E0%A6%87%E0%A6%B8%E0%A7%87%E0%A6%B2%E0%A6%AB-%E0%A6%9A%E0%A6%BF%E0%A6%95%E0%A6%BF%E0%A7%8E%E0%A6%B8%E0%A6%BE-%E0%A6%B8%E0%A6%BE%E0%A6%B9%E0%A6%BF%E0%A6%A4%E0%A7%8D%E0%A6%AF-%E0%A6%8F%E0%A6%AC%E0%A6%82-%E0%A6%86%E0%A6%A4%E0%A7%8D%E0%A6%AE%E0%A6%B8%E0%A6%AE%E0%A7%80%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A6%BE%E0%A6%B0-%E0%A6%B8%E0%A6%AE%E0%A7%80%E0%A6%95%E0%A6%B0%E0%A6%A3">ডিসেন্ট ইনটু মাইসেলফ – চিকিৎসা, সাহিত্য, এবং আত্মসমীক্ষার সমীকরণ</a>
-                                     </h6>
-                                     <ul class="meta list-inline mt-1 mb-0">
-                                        <li class="list-inline-item">13 Jul 24</li>
-                                     </ul>
-                                  </div>
-                               </div>
-                               <!-- post -->
-                               <div class="post post-list-sm circle">
-                                  <div class="thumb circle">
-                                     <a href="https://rupkotha.bn.synexdigital.com/view/%E0%A6%B0%E0%A6%AC%E0%A7%80%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%8D%E0%A6%B0%E0%A6%A8%E0%A6%BE%E0%A6%A5%E0%A7%87%E0%A6%B0-%E0%A6%95%E0%A6%AC%E0%A6%BF%E0%A6%A4%E0%A6%BE%E0%A6%AF%E0%A6%BC-%E0%A6%93-%E0%A6%97%E0%A6%BE%E0%A6%A8%E0%A7%87-%E0%A6%B0%E0%A6%A5-%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%B8%E0%A6%99%E0%A7%8D%E0%A6%97">
-                                        <div class="inner">
-                                           <span class="inner-text bd-font">৩</span>
-                                        </div>
-                                     </a>
-                                  </div>
-                                  <div class="details clearfix">
-                                     <h6 class="post-title my-0 bd-font"><a href="https://rupkotha.bn.synexdigital.com/view/%E0%A6%B0%E0%A6%AC%E0%A7%80%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%8D%E0%A6%B0%E0%A6%A8%E0%A6%BE%E0%A6%A5%E0%A7%87%E0%A6%B0-%E0%A6%95%E0%A6%AC%E0%A6%BF%E0%A6%A4%E0%A6%BE%E0%A6%AF%E0%A6%BC-%E0%A6%93-%E0%A6%97%E0%A6%BE%E0%A6%A8%E0%A7%87-%E0%A6%B0%E0%A6%A5-%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%B8%E0%A6%99%E0%A7%8D%E0%A6%97">রবীন্দ্রনাথের কবিতায় ও গানে রথ-প্রসঙ্গ</a>
-                                     </h6>
-                                     <ul class="meta list-inline mt-1 mb-0">
-                                        <li class="list-inline-item">13 Jul 24</li>
-                                     </ul>
-                                  </div>
-                               </div>
-                               <!-- post -->
-                               <div class="post post-list-sm circle">
-                                  <div class="thumb circle">
-                                     <a href="https://rupkotha.bn.synexdigital.com/view/kise-invest-krb">
-                                        <div class="inner">
-                                           <span class="inner-text bd-font">৪</span>
-                                        </div>
-                                     </a>
-                                  </div>
-                                  <div class="details clearfix">
-                                     <h6 class="post-title my-0 bd-font"><a href="https://rupkotha.bn.synexdigital.com/view/kise-invest-krb">কিসে ইনভেস্ট করব?</a>
-                                     </h6>
-                                     <ul class="meta list-inline mt-1 mb-0">
-                                        <li class="list-inline-item">07 Jul 24</li>
-                                     </ul>
-                                  </div>
-                               </div>
+
                             </div>
                          </div>
                     </div>

@@ -67,14 +67,7 @@ Route::post('/profile/forget/password/change/confirme',[ProfileController::class
 //blog
 Route::get('/blogs', [FrontEndController::class, 'blogIndex'])->name('blogs');
 Route::get('/blog-view/{slug}', [FrontEndController::class, 'blog_view'])->name('blog_view');
-// Route::get('/blogs', [BlogController::class, 'blogs'])->name('blog.all');
-// Route::get('/categories/{slugs}', [UserHomeController::class, 'category'])->name('category.view');
-// Route::get('/view', [UserHomeController::class, 'blog'])->name('blog.font');
-// Route::get('/about', [SiteController::class, 'about'])->name('about');
-// Route::get('/contact', [SiteController::class, 'contact'])->name('contact');
-// Route::get('/privacy', [SiteController::class, 'privacy'])->name('privacy');
-// Route::get('/search', [SearchController::class, 'search'])->name('search');
-// Route::get('/sitemap', [SitemapController::class, 'sitemap'])->name('sitemap');
+Route::get('/blogs-category/{slug}', [FrontEndController::class, 'blog_category_show'])->name('category_blog_show');
 
 
 Route::group(['middleware' => 'auth'],function(){

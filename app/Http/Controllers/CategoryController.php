@@ -48,7 +48,7 @@ class CategoryController extends Controller
 
         $category                   = new Category();
         $category->name             = $request->name;
-        $category->slug             = $request->slug;
+        $category->slug             = Str::slug($request->slug);
         $category->seo_title        = $request->seo_title;
         $category->seo_description  = $request->seo_description;
         $category->seo_tags         = $request->seo_tags;
@@ -99,7 +99,7 @@ class CategoryController extends Controller
         $category->seo_description  = $request->seo_description;
         $category->seo_tags         = $request->seo_tags;
         $category->status           = $request->status;
-        $category->slug             = $request->slug;
+        $category->slug             = Str::slug( $request->slug);
         $category->save();
         return back()->with('success', 'Category updated successfully');
     }
