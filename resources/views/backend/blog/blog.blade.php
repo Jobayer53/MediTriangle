@@ -54,33 +54,34 @@
                                             <td><span class="w-space-no">{{ $blogs->category->name }}</span></td>
                                             <td><span class="w-space-no">{{ $blogs->author }}</span></td>
                                             <td>
-                                                <div class="d-flex align-items-center"><img src="{{ url('/' . $blogs->image) }}"
+                                                <div class="d-flex align-items-center"><img src="{{ asset('frontend/blog') }}/{{ $blogs->image }}"
                                                         class="rounded-lg me-2" width="20" alt="">
                                             </td>
                                             <td><span
-                                                    class="badge light {{ $blogs->status == 'inactive' ? 'badge-danger' : 'badge light' }} badge-success">{{ $blogs->status }}</span>
+                                                    class="badge  {{ $blogs->status == 'inactive' ? 'text-bg-danger' : 'badge light' }} text-bg-primary">{{ $blogs->status }}</span>
                                             </td>
 
                                             <td>
-                                                <div class="d-flex">
+                                                <divsm class="d-flex">
                                                     <a href="{{ route('blog.edit', $blogs->id) }}"
-                                                        class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
+                                                        class="btn btn-primary shadow btn-sm sharp me-1"><i class="fa fa-pencil"></i></a>
 
                                                     <a href="{{ route('blog.show', $blogs->id) }}"
-                                                        class="btn btn-info shadow btn-xs sharp me-1"><i class="fa fa-eye"></i></a>
+                                                        class="btn btn-info shadow btn-sm sharp me-1"><i class="fa fa-eye"></i></a>
 
                                                     <form action="{{ route('blog.destroy', $blogs->id) }}" method="POST">
                                                         @method('DELETE')
                                                         @csrf
-                                                        <button type="submit" class="btn btn-danger shadow btn-xs sharp"><i
+                                                        <button type="submit" class="btn btn-danger shadow btn-sm sharp"><i
                                                                 class="fa fa-trash"></i></button>
                                                     </form>
-                                                </div>
+                                                </divsm
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{ $blog->links( 'pagination::bootstrap-5') }}
                         </div>
             </div>
         </div>
@@ -171,7 +172,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Content <span
                                         class="required-tag">*</span></label>
-                                <textarea id="summernote" class="@error('content') is-invalid @enderror" name="content">{{ old('content') }}</textarea>
+                                <textarea id="summernote" class=" @error('content') is-invalid @enderror" name="content">{{ old('content') }}</textarea>
                                 @error('content')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

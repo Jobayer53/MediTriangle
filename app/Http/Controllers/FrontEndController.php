@@ -186,6 +186,8 @@ class FrontEndController extends Controller
         //category product
         $categoryBlog = Blog::where('status', 'active')->paginate(12);
 
+
+
         return view('frontend.blog.index',[
             'blogs'     => $categoryBlog,
             'recent'    => $recent,
@@ -193,6 +195,49 @@ class FrontEndController extends Controller
             'cats'      => $category,
         ]);
         // }
+    }
+    public function blog_view($slug){
+        $blog = Blog::where('slug', $slug)->first();
+        $category = Category::where('status', 'active')->get();
+
+        //getting related blog
+        $related = Blog::where('category_id', $blog->category_id)->where('id', '!=', $blog->id)->orderBy('created_at', 'desc')->take(4)->get();
+
+        //getting most view alltime blog
+        $best = Blog::orderBy('view_count', 'desc')->take(4)->get();
+
+        //Recent
+        $recent = Blog::orderBy('id', 'desc')->take(4)->get();
+
+        if ($blog) {
+            //incerement view count
+            $blog->increment('view_count');
+            $blog->save();
+
+            //seo
+            $img = null;
+            $url = null;
+            $name = null;
+
+
+
+
+
+     
+
+
+
+
+            return view('frontend.blog.blog-preview', [
+                'blog'      => $blog,
+                'related'   => $related,
+                'recent'    => $recent,
+                'bests'     => $best,
+                'cats'      => $category,
+            ]);
+        } else {
+            return back();
+        }
     }
     function hctc(){
         SEOMeta::setTitle('Health Card Terms And Conditions'); //web title

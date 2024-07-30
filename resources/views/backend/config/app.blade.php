@@ -111,7 +111,7 @@
                             </div>
                         </li>
                         <li class="sidebar-dropdown">
-                            <a href="javascript:void(0)"><i style="margin-right:10px" class="fa-solid fa-database"></i> Blog </a>
+                            <a href="javascript:void(0)"><i style="margin-right:10px" class="fa-solid fa-blog"></i> Blog </a>
                             <div class="sidebar-submenu">
                                 <ul>
                                      <li><a href="{{ route('category.index') }}">Category</a></li>

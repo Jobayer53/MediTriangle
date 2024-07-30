@@ -66,7 +66,7 @@ Route::post('/profile/forget/password/change/confirme',[ProfileController::class
 
 //blog
 Route::get('/blogs', [FrontEndController::class, 'blogIndex'])->name('blogs');
-Route::get('/view/{id}', [BlogController::class, 'index'])->name('blog.view');
+Route::get('/blog-view/{slug}', [FrontEndController::class, 'blog_view'])->name('blog_view');
 // Route::get('/blogs', [BlogController::class, 'blogs'])->name('blog.all');
 // Route::get('/categories/{slugs}', [UserHomeController::class, 'category'])->name('category.view');
 // Route::get('/view', [UserHomeController::class, 'blog'])->name('blog.font');

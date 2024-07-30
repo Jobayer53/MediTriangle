@@ -72,6 +72,12 @@
         color: #000000;
         font-size: 40px;
     }
+    .custom{
+        transition: all 0.3s ease-in-out;
+    }
+    .custom:hover{
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    }
 </style>
 @endsection
 @section('content')
@@ -96,118 +102,52 @@
                 <div class="row gy-4">
                     <div class="col-lg-8">
                         <div class="row gy-4">
-                            <div class="col-lg-6 mb-2">
-                               <div class="card bd-card p-1 position-relative shadow-sm rounded bd-font">
-                                  <a style="bottom: -16px; width:160px;" class="btn btn-default shadow text-white position-absolute start-50 translate-middle-x rounded-5" href="https://rupkotha.bn.synexdigital.com/view/parsonal-brzanding-ken-drkar">Read</a>
-                                  <div class="card-body">
-                                     <div class="row">
-                                        <img src="https://rupkotha.bn.synexdigital.com/dashboards/Theme1/images/blog/1720872005.jpg">
-                                     </div>
-                                     <div class="row">
-                                        <div class="col">
-                                           <a href="https://rupkotha.bn.synexdigital.com/view/parsonal-brzanding-ken-drkar">
-                                              <h5 class="fw-bolder bd-font">পারসোনাল ব্র্যান্ডিং কেন দরকার?</h5>
-                                           </a>
-                                           <p class="text-secondary mt-3">
-                                              এন্টারপ্রেনার হই অথবা জব করি, পারসোনাল ব্র্যান্ডিং সবার জন্যই গুরুত্বপূর্ণ। অন্যরা কিভাবে...
-                                           </p>
+                            @forelse ($blogs as $blog )
+                            <div class="col-lg-6 mb-2 ">
+                                <div class="custom card bd-card p-1 position-relative  rounded bd-font">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            @if($blog->image)
+                                            <img src="{{ asset('frontend/blog/'.$blog->image) }}">
+                                            @else
+                                            <img height="30%" src="{{ asset('image-not-found.avif') }}">
+                                            @endif
                                         </div>
-                                     </div>
-                                     <div class="row" style="font-size: 13px">
-                                        <div class="col-6 text-secondary">
-                                           by <span class="text-uppercase fw-bolder">হোসাইন</span>
+                                        <div class="row">
+                                            <div class="col">
+                                                <a href="{{ route('blog_view', $blog->slug) }}">
+                                                    <h5 class="fw-bolder bd-font">{{ $blog->title }}</h5>
+                                                </a>
+                                                <p class="text-secondary mt-3">
+                                                    {{ $blog->description() }}
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="col-6 fw-bolder" style="text-align: end">
-                                           <p class="text-secondary"><span style="padding-right: 3px"><img src="https://rupkotha.bn.synexdigital.com/Themes/Theme1/images/eyebig.svg" alt=""></span>12</p>
+                                        <div class="row" style="font-size: 13px">
+                                            <div class="col-6 text-secondary">
+                                                by <span class="text-uppercase fw-bolder">{{ $blog->author }}</span>
+                                            </div>
+                                            <div class="col-6 fw-bolder" style="text-align: end">
+                                                <p class="text-secondary"><span style="padding-right: 3px"><img
+                                                            src="{{ asset('Themes/Theme1/images/eyebig.svg') }}"
+                                                            alt=""></span>{{ number_format($blog->view_count) }}</p>
+                                            </div>
                                         </div>
-                                     </div>
-                                  </div>
-                               </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-6 mb-2">
-                               <div class="card bd-card p-1 position-relative shadow-sm rounded bd-font">
-                                  <a style="bottom: -16px; width:160px;" class="btn btn-default shadow text-white position-absolute start-50 translate-middle-x rounded-5" href="https://rupkotha.bn.synexdigital.com/view/kise-invest-krb">Read</a>
-                                  <div class="card-body">
-                                     <div class="row">
-                                        <img src="https://rupkotha.bn.synexdigital.com/dashboards/Theme1/images/blog/1720869942.jpg">
-                                     </div>
-                                     <div class="row">
-                                        <div class="col">
-                                           <a href="https://rupkotha.bn.synexdigital.com/view/kise-invest-krb">
-                                              <h5 class="fw-bolder bd-font">কিসে ইনভেস্ট করব?</h5>
-                                           </a>
-                                           <p class="text-secondary mt-3">
-                                              সর্বজনীন পেনশন স্কিম, বন্ড, বীমা, ফিক্সড ডিপোজিট এসব করা থেকে ফিক্সড কোন এসেটে ব্যয় করুন।...
-                                           </p>
-                                        </div>
-                                     </div>
-                                     <div class="row" style="font-size: 13px">
-                                        <div class="col-6 text-secondary">
-                                           by <span class="text-uppercase fw-bolder">হোসাইন</span>
-                                        </div>
-                                        <div class="col-6 fw-bolder" style="text-align: end">
-                                           <p class="text-secondary"><span style="padding-right: 3px"><img src="https://rupkotha.bn.synexdigital.com/Themes/Theme1/images/eyebig.svg" alt=""></span>1</p>
-                                        </div>
-                                     </div>
-                                  </div>
-                               </div>
+
+                            @empty
+                            <div class="col-lg-12 mb-2 ">
+                                <div class="mt-5 card bd-card p-1 position-relative  rounded bd-font">
+                                    <div class="card-body text-center">
+                                        <h5>No blog found</h5>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-6 mb-2">
-                               <div class="card bd-card p-1 position-relative shadow-sm rounded bd-font">
-                                  <a style="bottom: -16px; width:160px;" class="btn btn-default shadow text-white position-absolute start-50 translate-middle-x rounded-5" href="https://rupkotha.bn.synexdigital.com/view/%E0%A6%B0%E0%A6%AC%E0%A7%80%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%8D%E0%A6%B0%E0%A6%A8%E0%A6%BE%E0%A6%A5%E0%A7%87%E0%A6%B0-%E0%A6%95%E0%A6%AC%E0%A6%BF%E0%A6%A4%E0%A6%BE%E0%A6%AF%E0%A6%BC-%E0%A6%93-%E0%A6%97%E0%A6%BE%E0%A6%A8%E0%A7%87-%E0%A6%B0%E0%A6%A5-%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%B8%E0%A6%99%E0%A7%8D%E0%A6%97">Read</a>
-                                  <div class="card-body">
-                                     <div class="row">
-                                        <img src="https://rupkotha.bn.synexdigital.com/dashboards/Theme1/images/blog/1720871851.jpg">
-                                     </div>
-                                     <div class="row">
-                                        <div class="col">
-                                           <a href="https://rupkotha.bn.synexdigital.com/view/%E0%A6%B0%E0%A6%AC%E0%A7%80%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%8D%E0%A6%B0%E0%A6%A8%E0%A6%BE%E0%A6%A5%E0%A7%87%E0%A6%B0-%E0%A6%95%E0%A6%AC%E0%A6%BF%E0%A6%A4%E0%A6%BE%E0%A6%AF%E0%A6%BC-%E0%A6%93-%E0%A6%97%E0%A6%BE%E0%A6%A8%E0%A7%87-%E0%A6%B0%E0%A6%A5-%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%B8%E0%A6%99%E0%A7%8D%E0%A6%97">
-                                              <h5 class="fw-bolder bd-font">রবীন্দ্রনাথের কবিতায় ও গানে রথ-প্রসঙ্গ</h5>
-                                           </a>
-                                           <p class="text-secondary mt-3">
-                                              রবীন্দ্রনাথ যে সময়ে জন্মেছিলেন, কলকাতায় তখন রথ দৈনন্দিন ব্যবহারের মধ্যে সচল ছিল না।...
-                                           </p>
-                                        </div>
-                                     </div>
-                                     <div class="row" style="font-size: 13px">
-                                        <div class="col-6 text-secondary">
-                                           by <span class="text-uppercase fw-bolder">Jisan</span>
-                                        </div>
-                                        <div class="col-6 fw-bolder" style="text-align: end">
-                                           <p class="text-secondary"><span style="padding-right: 3px"><img src="https://rupkotha.bn.synexdigital.com/Themes/Theme1/images/eyebig.svg" alt=""></span>4</p>
-                                        </div>
-                                     </div>
-                                  </div>
-                               </div>
-                            </div>
-                            <div class="col-lg-6 mb-2">
-                               <div class="card bd-card p-1 position-relative shadow-sm rounded bd-font">
-                                  <a style="bottom: -16px; width:160px;" class="btn btn-default shadow text-white position-absolute start-50 translate-middle-x rounded-5" href="https://rupkotha.bn.synexdigital.com/view/%E0%A6%A1%E0%A6%BF%E0%A6%B8%E0%A7%87%E0%A6%A8%E0%A7%8D%E0%A6%9F-%E0%A6%87%E0%A6%A8%E0%A6%9F%E0%A7%81-%E0%A6%AE%E0%A6%BE%E0%A6%87%E0%A6%B8%E0%A7%87%E0%A6%B2%E0%A6%AB-%E0%A6%9A%E0%A6%BF%E0%A6%95%E0%A6%BF%E0%A7%8E%E0%A6%B8%E0%A6%BE-%E0%A6%B8%E0%A6%BE%E0%A6%B9%E0%A6%BF%E0%A6%A4%E0%A7%8D%E0%A6%AF-%E0%A6%8F%E0%A6%AC%E0%A6%82-%E0%A6%86%E0%A6%A4%E0%A7%8D%E0%A6%AE%E0%A6%B8%E0%A6%AE%E0%A7%80%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A6%BE%E0%A6%B0-%E0%A6%B8%E0%A6%AE%E0%A7%80%E0%A6%95%E0%A6%B0%E0%A6%A3">Read</a>
-                                  <div class="card-body">
-                                     <div class="row">
-                                        <img src="https://rupkotha.bn.synexdigital.com/dashboards/Theme1/images/blog/1720875495.jpg">
-                                     </div>
-                                     <div class="row">
-                                        <div class="col">
-                                           <a href="https://rupkotha.bn.synexdigital.com/view/%E0%A6%A1%E0%A6%BF%E0%A6%B8%E0%A7%87%E0%A6%A8%E0%A7%8D%E0%A6%9F-%E0%A6%87%E0%A6%A8%E0%A6%9F%E0%A7%81-%E0%A6%AE%E0%A6%BE%E0%A6%87%E0%A6%B8%E0%A7%87%E0%A6%B2%E0%A6%AB-%E0%A6%9A%E0%A6%BF%E0%A6%95%E0%A6%BF%E0%A7%8E%E0%A6%B8%E0%A6%BE-%E0%A6%B8%E0%A6%BE%E0%A6%B9%E0%A6%BF%E0%A6%A4%E0%A7%8D%E0%A6%AF-%E0%A6%8F%E0%A6%AC%E0%A6%82-%E0%A6%86%E0%A6%A4%E0%A7%8D%E0%A6%AE%E0%A6%B8%E0%A6%AE%E0%A7%80%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A6%BE%E0%A6%B0-%E0%A6%B8%E0%A6%AE%E0%A7%80%E0%A6%95%E0%A6%B0%E0%A6%A3">
-                                              <h5 class="fw-bolder bd-font">ডিসেন্ট ইনটু মাইসেলফ – চিকিৎসা, সাহিত্য, এবং আত্মসমীক্ষার সমীকরণ</h5>
-                                           </a>
-                                           <p class="text-secondary mt-3">
-                                              প্রেক্ষিত প্রথম বিশ্বযুদ্ধকালীন রাশিয়া। চরিত্রের নামগুলি কাল্পনিক হলেও ঘটনা ভয়ঙ্করভাবে...
-                                           </p>
-                                        </div>
-                                     </div>
-                                     <div class="row" style="font-size: 13px">
-                                        <div class="col-6 text-secondary">
-                                           by <span class="text-uppercase fw-bolder">Jisan</span>
-                                        </div>
-                                        <div class="col-6 fw-bolder" style="text-align: end">
-                                           <p class="text-secondary"><span style="padding-right: 3px"><img src="https://rupkotha.bn.synexdigital.com/Themes/Theme1/images/eyebig.svg" alt=""></span>6</p>
-                                        </div>
-                                     </div>
-                                  </div>
-                               </div>
-                            </div>
+                            @endforelse
+
+
                          </div>
 
                         <div class="spacer" data-height="50" style="height: 30px;"></div>
