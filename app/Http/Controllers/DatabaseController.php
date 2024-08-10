@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\StateModel;
+
+use Illuminate\Support\Str;
 use App\Models\CountryModel;
 use Illuminate\Http\Request;
 use App\Models\HospitalModel;
@@ -113,18 +115,35 @@ class DatabaseController extends Controller
 
     }
     function hospitalStore(Request $request){
+
         $request->validate([
             'country_id' => 'required',
             'state_id' => 'required',
             'hospital' => 'required',
+            'imageFirst'    => 'required',
+
+            'description' => 'required',
         ]);
+
         if (HospitalModel::where('country_id',$request->country_id)->where('state_id',$request->state_id)->where('hospital',$request->hospital)->exists()) {
             return back()->with('err','Data already exists');;
         }else {
+            $file1 = $request->imageFirst;
+            $file2 = $request->imageSecond;
+            $extension1 = $file1->getClientOriginalExtension();
+            $extension2 = $file2?->getClientOriginalExtension();
+            $filename1 = 'HOSPITAL-FIRST-'.time().'.'.$extension1;
+            $filename2 = 'HOSPITAL-SECOND-'.time().'.'.$extension2;
+            $file1->move('uploads/hospital/',$filename1);
+            $file2?->move('uploads/hospital/',$filename2);
          HospitalModel::insert([
             'country_id' => $request->country_id,
             'state_id' => $request->state_id,
             'hospital' => $request->hospital,
+            'image_first' => $filename1,
+            'image_second' => $file2?$filename2:null,
+            'description' => $request->description,
+            'slug'        =>  Str::slug($request->hospital, '-').'-'.rand(0,1000),
             'created_at' => Carbon::now(),
         ]);
         return back()->with('succ','Country Successfully Added.');

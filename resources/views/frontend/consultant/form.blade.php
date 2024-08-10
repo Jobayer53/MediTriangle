@@ -117,7 +117,7 @@
         <div class="row justify-content-md-center">
             <div class="col-lg-8">
                 <div class="bg-light text-center rounded p-4">
-                    <h1 class="mb-5">Video Consultation</h1>
+                    <h1 class="mb-5">Doctor Video Consultation</h1>
                     <hr>
                     <form action="{{ route('video.consultant.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -190,7 +190,7 @@
                             {{-- File --}}
                             <div class="col-12 mb-3 text-start">
                                 <label for="" class="p-2">Report / Prescription <span style="color: #f9a7a7; font-size:10px; " >(PDF ONLY)</span></label>
-                                <input type="file" name="report" class="form-control bg-white border-0 @error('report') is-invalid @enderror" value="{{ old('passport') }}">
+                                <input type="file" name="report" class="form-control bg-white border-0 @error('report') is-invalid @enderror" value="{{ old('passport') }}" accept="application/pdf">
                                 @error('report')
                                     <span class="text-sm text-danger" > {{$message}} </span>
                                 @enderror

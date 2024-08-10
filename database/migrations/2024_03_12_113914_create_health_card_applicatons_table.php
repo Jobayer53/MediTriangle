@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->string('note', 255)->nullable();
             $table->string('passport_nid',255)->nullable();
+            $table->string('slug');
             $table->timestamps();
         });
     }

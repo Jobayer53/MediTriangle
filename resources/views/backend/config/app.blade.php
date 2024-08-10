@@ -14,7 +14,7 @@
         <!-- Bootstrap Css -->
         <link href="{{ asset('backend/css/bootstrap.min.css') }}" class="theme-opt" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
-        <link href="{{ asset('backend/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+        {{-- <link href="{{ asset('backend/css/icons.min.css') }}" rel="stylesheet" type="text/css" /> --}}
         <link href="{{ asset('backend/libs/remixicon/fonts/remixicon.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('backend/libs/%40iconscout/unicons/css/line.css') }}" type="text/css" rel="stylesheet" />
         <!-- Style Css-->
@@ -44,6 +44,7 @@
                }
             }
         </style>
+        @yield('sum-style')
     </head>
 
     <body>
@@ -93,32 +94,47 @@
                         <li class="sidebar-dropdown">
                             <a href="javascript:void(0)"><i style="margin-right:10px" class="fa-solid fa-database"></i> DataBase <span style="margin-left:10px" class="badge bg-warning me-2 mt-2">important</span></a>
                             <div class="sidebar-submenu">
-                                <ul>
+                                <ul> <li><a href="{{ route('d.banner') }}">Banner</a></li>
+                                    <li><a href="{{ route('d.service') }}">Service</a></li>
                                     <li><a href="{{ route('d.country') }}">Country</a> </li>
                                     <li><a href="{{ route('d.state') }}">State</a> </li>
                                     <li><a href="{{ route('d.hospital') }}">Hospital</a> </li>
-                                    <li><a href="{{route('health-card.index')}}">Health Card</a> </li>
                                     <li><a href="{{ route('d.department') }}">Department</a> </li>
+                                    <li><a href="{{ route('doctor.manage') }}">Doctor</a></li>
+                                    <li><a href="{{route('health-card.index')}}">Health Card</a> </li>
+                                    <li><a href="{{ route('d.about') }}">How We Work</a></li>
+                                    <li><a href="{{ route('d.social') }}">Social Media</a></li>
+                                    <li><a href="{{ route('owner.link') }}">Website Info</a></li>
                                     {{-- <li><a href="{{ route('embassy.index') }}">Embassy</a> </li> --}}
                                     {{-- <li><a href="{{ route('visatype.index') }}">Passport Type</a> </li> --}}
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="javascript:void(0)"><i style="margin-right:10px" class="fa-solid fa-blog"></i> Blog </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                     <li><a href="{{ route('category.index') }}">Category</a></li>
+                                    <li><a href="{{ route('blog.index') }}">Blog</a></li>
+
                                 </ul>
                             </div>
                         </li>
                         @endif
 
                         {{-- <li><a href="appointment.html"><i class="fa-solid fa-user-doctor"></i>Doctors</a></li> --}}
-                        @if (Auth::guard('admin_model')->user()->can('doctors'))
+                        {{-- @if (Auth::guard('admin_model')->user()->can('doctors'))
                             <li class="sidebar-dropdown">
                                 <a href="javascript:void(0)"><i style="margin-right:10px" class="fa-solid fa-user-doctor"></i> Doctors</a>
                                 <div class="sidebar-submenu">
                                     <ul>
                                         <li><a href="{{ route('doctor.link') }}">Add Doctor</a></li>
-                                        <li><a href="{{ route('doctor.manage') }}">Manage Doctor</a></li>
+                                        <li><a href="{{ route('doctor.manage') }}">Doctor</a></li>
 
                                     </ul>
                                 </div>
                             </li>
-                        @endif
+                        @endif --}}
 
 
                         @if (Auth::guard('admin_model')->user()->can('settings'))
@@ -132,11 +148,11 @@
                                     @if (Auth::guard('admin_model')->user()->can('role'))
                                         <li><a href="{{ route('role.link') }}">Role Management</a></li>
                                     @endif
-                                    <li><a href="{{ route('owner.link') }}">Website Info</a></li>
-                                    <li><a href="{{ route('d.social') }}">Social Media</a></li>
-                                    <li><a href="{{ route('d.service') }}">Service</a></li>
-                                    <li><a href="{{ route('d.about') }}">About</a></li>
-                                    <li><a href="{{ route('d.banner') }}">Banner</a></li>
+                                    {{-- <li><a href="{{ route('owner.link') }}">Website Info</a></li> --}}
+                                    {{-- <li><a href="{{ route('d.social') }}">Social Media</a></li> --}}
+                                    {{-- <li><a href="{{ route('d.service') }}">Service</a></li> --}}
+                                    {{-- <li><a href="{{ route('d.about') }}">About</a></li> --}}
+                                    {{-- <li><a href="{{ route('d.banner') }}">Banner</a></li> --}}
                                     {{-- <li><a href="error.html">404 !</a></li>
                                     <li><a href="thankyou.html">Thank you...!</a></li> --}}
                                 </ul>
@@ -305,12 +321,12 @@
         </div>
         <!-- page-wrapper -->
 
-
+        @yield('sum-script')
         <!-- javascript -->
         <script src="{{ asset('backend/libs/simplebar/simplebar.min.js') }}"></script>
-        <script src="{{ asset('backend/libs/apexcharts/apexcharts.min.js') }}"></script>
+        {{-- <script src="{{ asset('backend/libs/apexcharts/apexcharts.min.js') }}"></script> --}}
         <script src="{{ asset('backend/js/admin-apexchart.init.js') }}"></script>
-        {{-- <script src="{{ asset('backend/libs/feather-icons/feather.min.js') }}"></script> --}}
+        <script src="{{ asset('backend/libs/feather-icons/feather.min.js') }}"></script>
         <!-- Main Js -->
         <!-- JAVASCRIPT -->
         <script src="{{ asset('backend/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

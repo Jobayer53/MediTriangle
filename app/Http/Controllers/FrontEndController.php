@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HealthCard;
-use App\Models\HealthCardApplicaton;
+use App\Models\Blog;
 use App\Models\User;
+use App\Models\Category;
+use App\Models\HealthCard;
+use App\Models\DoctorModel;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\HospitalModel;
+use App\Models\DepartmentModel;
+use App\Models\HealthCardApplicaton;
 use Illuminate\Support\Facades\Auth;
+use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\OpenGraph;
-use Artesaos\SEOTools\Facades\JsonLd;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\HealthCard as NotificationsHealthCard;
 
 class FrontEndController extends Controller
 {
@@ -84,6 +92,7 @@ class FrontEndController extends Controller
         return view('frontend.health-card.index',compact('healths'));
     }
     function healthCardStore(Request $request){
+
         $request->validate([
             'name' => 'required',
             'number' => 'required|numeric|digits:11',
@@ -108,20 +117,127 @@ class FrontEndController extends Controller
             $application->number = $request->number;
             $application->address = $request->address;
             $application->passport_nid = $request->pass_nid_number;
+            $application->slug = 'MT-' . substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'), 0, 6);
             $application->status = "PROCESSING";
             $application->save();
-            return redirect(route('thank.you'));
+
 
         }else{
             $application = new HealthCardApplicaton();
             $application->name = $request->name;
             $application->number = $request->number;
             $application->address = $request->address;
+            $application->slug = 'MT-' . substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'), 0, 6);
             $application->status = "PROCESSING";
             $application->save();
-            return redirect(route('thank.you'));
+
         }
-       return back();
+        $adminEmails = [
+            'admin1@example.com',
+            // Add more admin emails as needed
+        ];
+        $messageAdmin = 'New health card requested! Take a look.';
+        // $messageUser = 'Thank you for your health card request. We will contact you soon.';
+        Notification::route('mail', $adminEmails)->notify(new NotificationsHealthCard($messageAdmin,true));
+        // Notification::route('mail', $request->email)?->notify(new NotificationsHealthCard($messageUser, false));
+        return redirect(route('thank.you'));
+    }
+    public function hospitalDetails($slug){
+        $hospital = HospitalModel::where('slug',$slug)->first();
+        return view('frontend.hospital.hospital_details',[
+            'hospital' => $hospital
+        ]);
+    }
+    public function findDoctor(){
+        $departments = DepartmentModel::where('status',1)->get();
+        $doctors = DoctorModel::where('status',1)->get();
+        return view('frontend.doctor.doctor_filter',[
+            'departments' => $departments,
+            'doctors' => $doctors
+        ]);
+    }
+    public function department_result($id) {
+        $doctors = DoctorModel::with(['con_department', 'con_hospital'])
+                              ->where('department_id', $id)
+                              ->where('status', 1)
+                              ->get();
+        return response()->json($doctors);
+    }
+    public function search_result($search) {
+        $doctors = DoctorModel::with(['con_department', 'con_hospital'])
+        ->where('name', 'like' , "%$search%")
+        ->where('status', 1)
+        ->get();
+        return response()->json($doctors);
+    }
+
+    public function blogIndex()
+    {
+        $category = Category::where('status', 'active')->get();
+        //getting most view alltime blog
+        // $best = Blog::orderBy('view_count', 'desc')->take(4)->get();
+        //Recent
+        // $recent = Blog::orderBy('id', 'desc')->take(4)->get();
+        //category product
+        $categoryBlog = Blog::where('status', 'active')->paginate(8);
+        return view('frontend.blog.index',[
+            'blogs'     => $categoryBlog,
+            // 'recent'    => $recent,
+            // 'bests'     => $best,
+            'cats'      => $category,
+        ]);
+
+    }
+    public function blog_category_show($slug)
+    {
+        $cat = Category::query()->select('slug', 'id','name')->where('slug',$slug)->where('status', 'active')->first();
+        $category = Category::where('status', 'active')->get();
+        // $category = Category::where('slug',$slug)->where('status', 'active')->get();
+        //getting most view alltime blog
+        // $best = Blog::orderBy('view_count', 'desc')->take(4)->get();
+        //Recent
+        // $recent = Blog::orderBy('id', 'desc')->take(4)->get();
+        //category product
+        $categoryBlog = Blog::where('category_id',$cat->id)->where('status', 'active')->paginate(8);
+
+
+        // where('status', 'active')->paginate(8);
+        return view('frontend.blog.index',[
+            'blogs'     => $categoryBlog,
+            // 'recent'    => $recent,
+            // 'bests'     => $best,
+            'cats'      => $category,
+        ]);
+
+    }
+    public function blog_view($slug){
+        $blog = Blog::where('slug', $slug)->first();
+        $category = Category::where('status', 'active')->get();
+
+        //getting related blog
+        $related = Blog::where('category_id', $blog->category_id)->where('id', '!=', $blog->id)->orderBy('created_at', 'desc')->take(4)->get();
+
+        //getting most view alltime blog
+        // $best = Blog::orderBy('view_count', 'desc')->take(4)->get();
+
+        //Recent
+        // $recent = Blog::orderBy('id', 'desc')->take(4)->get();
+
+        if ($blog) {
+            //incerement view count
+            $blog->increment('view_count');
+            $blog->save();
+
+            return view('frontend.blog.blog-preview', [
+                'blog'      => $blog,
+                'related'   => $related,
+                // 'recent'    => $recent,
+                // 'bests'     => $best,
+                'cats'      => $category,
+            ]);
+        } else {
+            return back();
+        }
     }
 
     function hctc(){

@@ -19,7 +19,7 @@ class AdminController extends Controller
     }
     function register_2(){
         $admin = AdminModel::all();
-        if($admin->count() == 0){
+        if($admin->count() == 1){
             return view('backend.auth.register_2');
         }else{
             return view('backend.auth.login');
@@ -27,8 +27,8 @@ class AdminController extends Controller
     }
     function registerLink(){
         if (Auth::guard('admin_model')->user()->can('user')) {
-            // Show the view page
             return view('backend.auth.register');
+            // Show the view page
 
         } else {
             return abort(404);

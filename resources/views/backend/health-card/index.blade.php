@@ -59,34 +59,30 @@
             </div>
         </div>
     </div>
-    {{-- Modals --}}
-{{-- //Directions --}}
-<div class="container-fluid">
-    <div class="layout-specing">
-        <div class="row mb-3">
-            <div class="d-md-flex justify-content-between">
-                <h5 class="mb-0">Health Card</h5>
-
-                <nav aria-label="breadcrumb" class="d-inline-block mt-4 mt-sm-0">
-                    <ul class="breadcrumb bg-transparent rounded mb-0 p-0">
-                        <li class="breadcrumb-item"><a href="{{ route('d.service') }}">Dashboard</a></li><i style="font-size:12px;padding-left:6px" class="fa-solid fa-chevron-right"></i>
-                        <li class="breadcrumb-item active" aria-current="page">Owner</li><i style="font-size:12px;padding-left:6px" class="fa-solid fa-chevron-right"></i>
-                        <li class="breadcrumb-item active" aria-current="page">Health Card</li>
-                    </ul>
-                </nav>
-            </div>
-        </div><!--end row-->
-
-        <div class="row">
-            {{-- Website INfo --}}
-            <div class="col-lg-4 mb-3">
-                <div class="card border-0 p-4 rounded shadow">
-                    <form action="{{ route('health-card.store') }}" method="POST" class="mt-4" enctype="multipart/form-data">
+    <div class="modal fade" id="addHealth" tabindex="-1" aria-labelledby="addHealth" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-bottom p-3">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Health Card</h5>
+                    <button type="button" class="btn btn-icon btn-close" data-bs-dismiss="modal" id="close-modal"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body p-3 pt-4">
+                    <form action="{{ route('health-card.store') }}" method="POST" class="" enctype="multipart/form-data">
                         @csrf
                         <div class="">
-                            <div class=" mb-3">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="" class="form-label"> Card Image First</label>
+                                    <input type="file" name="photofirst" class="form-control  @error('photo') is-invalid @enderror"  required>
+                                </div>
+                                <div class="col">
+                                    <label for="" class="form-label"> Card Image Second</label>
+                                    <input type="file" name="photosecond" class="form-control  @error('photo') is-invalid @enderror"  required>
+                                </div>
+                            </div>
+                            <div class=" mb-2">
                                 <label for="" class="form-label">Card Name </label>
-                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"  required>
+                                <input type="text" name="name" class="form-control  @error('name') is-invalid @enderror"  required>
                             </div>
                             <div class=" mb-3">
                                 <label for="" class="form-label">Card Price </label>
@@ -110,9 +106,33 @@
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+    {{-- Modals --}}
+{{-- //Directions --}}
+<div class="container-fluid">
+    <div class="layout-specing">
+        <div class="row mb-3">
+            <div class="d-md-flex justify-content-between">
+                <h5 class="mb-0">Health Card</h5>
+
+                <nav aria-label="breadcrumb" class="d-inline-block mt-4 mt-sm-0">
+                    <ul class="breadcrumb bg-transparent rounded mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="{{ route('d.service') }}">Dashboard</a></li><i style="font-size:12px;padding-left:6px" class="fa-solid fa-chevron-right"></i>
+                        <li class="breadcrumb-item active" aria-current="page">Owner</li><i style="font-size:12px;padding-left:6px" class="fa-solid fa-chevron-right"></i>
+                        <li class="breadcrumb-item active" aria-current="page">Health Card</li>
+                    </ul>
+                </nav>
+            </div>
+        </div><!--end row-->
+
+        <div class="row">
+            {{-- Website INfo --}}
+
 
             {{-- List --}}
-            <div class="col-lg-8">
+            <div class="col-lg-12">
+                <button class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#addHealth">Add Health Card</button>
                 <div class="table-responsive shadow rounded">
                     @if ($healths->count() != 0 )
                         <table class="table t bg-white mb-0" id="myTable">

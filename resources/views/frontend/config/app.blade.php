@@ -52,16 +52,16 @@
 
 <body>
     {{--  Topbar Start   --}}
-    <div class="container-fluid py-2 border-bottom d-none d-lg-block">
+    <div class="container-fluid py-2 border-bottom   d-lg-block " style="background-color: #1475A5;position:sticky;top:0;z-index:100">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
                     <div class="d-inline-flex align-items-center">
                         @if ($owners != null)
-                            <a class="text-decoration-none text-body pe-3" href=""><i
-                                    class="bi bi-telephone me-2"></i>{{$owners->number }}</a>
+                            <a class="text-decoration-none  text-body pe-3" style="color: white !important;" ><i
+                                    class="bi bi-telephone text-white me-2"></i>+880 {{$owners->number }}</a>
                             <span class="text-body">|</span>
-                            <a class="text-decoration-none text-body px-3" href=""><i
+                            <a class="text-decoration-none text-body px-3" style="color: white !important;"><i
                                     class="bi bi-envelope me-2"></i>{{ $owners->email }}</a>
                         @endif
 
@@ -84,7 +84,7 @@
     {{--  Topbar End   --}}
 
     {{--  Navbar Start  --}}
-    <div class="container-fluid sticky-top bg-white shadow-sm">
+    <div class="container-fluid sticky-top bg-white shadow-sm" style="top:41px !important">
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
                 <a href="{{ route('home') }}" class="navbar-brand">
@@ -96,13 +96,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="{{ route('link.appoinment') }}" class="nav-item nav-link">Doctor Appointment</a>
+                        <a href="{{ route('link.appoinment') }}" class="nav-item nav-link {{ request()->routeIs('link.appoinment')? 'active' :'' }} ">Doctor Appointment</a>
                         {{-- <a href="{{ route('link.appoinment') }}" class="nav-item nav-link">Appointment</a> --}}
-                        <a href="{{ route('video.consultant.link') }}" class="nav-item nav-link">Doctor Video Consultation</a>
-                        <a href="{{ route('link.visa') }}" class="nav-item nav-link">Visa Services</a>
+                        <a href="{{ route('video.consultant.link') }}" class="nav-item nav-link {{ request()->routeIs('video.consultant.link')? 'active' : '' }}">Doctor Video Consultation</a>
+                        <a href="{{ route('link.visa') }}" class="nav-item nav-link {{ request()->routeIs('link.visa')? 'active' : '' }}">Visa Invitation Form</a>
                         {{-- <a href="{{ route('link.medicine') }}" class="nav-item nav-link">Medicine</a> --}}
-                        <a href="{{route('health.card')}}" class="nav-item nav-link">Health Card</a>
-                        <a href="blog.html" class="nav-item nav-link">Blog</a>
+                        <a href="{{route('health.card')}}" class="nav-item nav-link {{ request()->routeIs('health.card')? 'active' : '' }}">Health Card</a>
+                        <a href="{{route('blogs')}}" class="nav-item nav-link {{ request()->routeIs('blogs')? 'active' : '' }}">Blog</a>
                         {{-- <a href="price.html" class="nav-item nav-link">Contact Us</a> --}}
                         {{-- <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Medicine</a>
@@ -129,7 +129,7 @@
                         @endif --}}
                         <span class="nav-item nav-link d-flex justify-content-center align-items-center ml-2">
                             <a href="{{ route('contact') }}"
-                                class="btn btn-sm display-6 font-weight-normal bg-primary text-white me-2">
+                                class="btn btn-sm display-6 font-weight-normal bg-primary text-white me-2 {{ request()->routeIs('contact')? 'active' : '' }}">
                                 Contact Us </a>
                             {{-- <a href="{{ route('login') }}"
                                 class="btn btn-sm display-6 font-weight-normal bg-primary text-white">
@@ -290,6 +290,7 @@
             })
         </script>
     @endif
+
     @yield('script')
 </body>
 

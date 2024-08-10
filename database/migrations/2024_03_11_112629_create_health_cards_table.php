@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->integer('price');
             $table->string('benifits');
+            $table->string('image_first');
+            $table->string('image_second');
             $table->string('status')->default(0);
             $table->timestamps();
         });

@@ -7,8 +7,8 @@
     <!-- Search Start -->
     <div class="container-fluid pt-5">
         <div class="container">
-            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                <h1 class="display-5 mt-5 mb-4">Doctor Video Consultant</h1>
+            <div class="text-center mx-auto mb-5" >
+                <h1 class="display-4 mt-3 mb-4">Doctor Video Consultation</h1>
             </div>
             <form action="{{ route('video.consultant.link') }}" method="get">
             @csrf
@@ -47,7 +47,8 @@
                                 </div>
                                 <p class="card-text">{{ $doctor->con_department->department }}</p>
                                 <p class="card-text text-dark"><i class="fa-solid fa-house-medical text-primary p-2"></i>{{ $doctor->con_hospital->hospital }}</p>
-                                <a class="btn btn-outline-dark btn-sm mt-3" href="{{ route('video.consultant.take',$doctor->id) }}"><i class="fa-solid fa-video pe-2"></i>Take</a>
+                                <a href="" class="btn btn-outline-dark btn-sm mt-3"> Profile</a>
+                                <a class="btn btn-outline-dark btn-sm mt-3" href="{{ route('video.consultant.take',$doctor->id) }}"><i class="fa-solid fa-video pe-2"></i>Book a video call</a>
                                 </div>
                             </div>
                         </div>

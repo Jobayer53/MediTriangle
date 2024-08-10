@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AppoinmentModel;
-use App\Models\AppoinmentReports;
-use App\Models\attendant;
-use App\Models\DoctorModel;
-use App\Models\User;
+use Image;
+use Photo;
 use ArrayIterator;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Image;
+use App\Models\User;
 use MultipleIterator;
-use Photo;
+use App\Models\attendant;
+use App\Models\DoctorModel;
+use Illuminate\Http\Request;
+use App\Models\AppoinmentModel;
+use App\Models\AppoinmentReports;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\DoctorAppointment;
+use Illuminate\Support\Facades\Notification;
 
 class AppoinmentController extends Controller
 {
@@ -62,6 +64,14 @@ class AppoinmentController extends Controller
             $appoinment->email = $request->email? $request->email:null;
             $appoinment->status = "PROCESSING";
             $appoinment->save();
+        $adminEmails = [
+            'admin1@example.com',
+            // Add more admin emails as needed
+        ];
+        $messageAdmin = 'New appoinment requested! Take a look.';
+        $messageUser = 'Thank you for your appoinment. We will contact you soon.';
+        Notification::route('mail', $adminEmails)->notify(new DoctorAppointment($messageAdmin,true));
+        Notification::route('mail', $request->email)?->notify(new DoctorAppointment($messageUser, false));
 
         return redirect(route('thank.you'));
         // //Attendant

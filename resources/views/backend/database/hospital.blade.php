@@ -65,44 +65,64 @@
 
             {{-- Modals --}}
         <div class="modal fade" id="appointmentform" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header border-bottom p-3">
                         <h5 class="modal-title" id="exampleModalLabel">Hospital</h5>
                         <button type="button" class="btn btn-icon btn-close" data-bs-dismiss="modal" id="close-modal"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                     <div class="modal-body p-3 pt-4">
-                        <form action="{{ route('d.hospital.store') }}" method="POST">
+                        <form action="{{ route('d.hospital.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="row">
-                                {{-- Country --}}
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">Country <span class="text-danger">*</span></label>
-                                        <select class="form-select form-control country  @error('country_id') is-invalid @enderror" name="country_id">
-                                            <option value="">-- Select Country --</option>
-                                            @forelse ($countries as $country)
-                                            <option value="{{ $country->id }}">{{ $country->country }}</option>
-                                            @empty
-                                            <option disabled>No Data Found !</option>
-                                            @endforelse
-                                        </select>
+                            <div class="">
+
+
+                                    <div class="row g-3" >
+                                        <div class="col">
+                                            <label for="" class="form-label"> Hospital image first<span class="text-danger " style="font-size: 9px;">*</span></label>
+                                            <input type="file" class="form-control mb-2"  name="imageFirst"  accept="image/*" />
+                                        </div>
+                                        <div class="col">
+                                            <label for="" class="form-label"> Hospital image second</label>
+                                            <input type="file" class="form-control mb-2"  name="imageSecond"  accept="image/*" />
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="row">
+
+                                        <div class="col mb-3">
+                                            <label class="form-label">Country <span class="text-danger">*</span></label>
+                                            <select class="form-select form-control country  @error('country_id') is-invalid @enderror" name="country_id">
+                                                <option value="">-- Select Country --</option>
+                                                @forelse ($countries as $country)
+                                                <option value="{{ $country->id }}">{{ $country->country }}</option>
+                                                @empty
+                                                <option disabled>No Data Found !</option>
+                                                @endforelse
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label class="form-label">State <span class="text-danger">*</span></label>
+                                                <select class="form-select form-control @error('state_id') is-invalid @enderror" id="state" name="state_id">
+                                                    <option value="">-- Select State --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
 
                                 {{-- State --}}
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">State <span class="text-danger">*</span></label>
-                                        <select class="form-select form-control @error('state_id') is-invalid @enderror" id="state" name="state_id">
-                                            <option value="">-- Select State --</option>
-                                        </select>
-                                    </div>
+
+
+                                <div class="col-md-12 mb-3">
+                                    <label for="" class="form-label"> Hospital name <span class="text-danger">*</span></label>
+                                    <input type="text"  name="hospital" class="form-control"  placeholder="Appolo "/>
+                                </div>
+                                <div class="col-md-12 mb-2">
+                                    <label for="" class="form-label"> Description <span class="text-danger ">*</span></label>
+                                   <textarea class="form-control" name="description" id="" cols="30" rows="5"></textarea>
                                 </div>
 
-                                <div class="col-md-12">
-                                    <x-Input type="text" label="Hospital Name" name="hospital"  placeholder="Appolo "/>
-                                </div>
 
                                 <div class="col-lg-12">
                                     <div class="d-grid">

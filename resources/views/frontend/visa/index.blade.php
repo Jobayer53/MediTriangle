@@ -149,7 +149,7 @@
     <div class="row ">
         <div class="col-lg-10 m-auto">
             <div class="card">
-                <div class="card-header " style="background-color: #1d2a4d;">
+                <div class="card-header text-center  " style="background-color: #1d2a4d;">
                     <h3 class="text-white">Visa Invitation Form</h3>
                 </div>
                 <form action="{{ route('store.visa') }}" method="POST" enctype="multipart/form-data">
@@ -161,8 +161,8 @@
                         </div>
                         <div class="row mb-3">
                             <div class=" col-6 mb-3 form-group ">
-                                <label  class="form-label ">Email</label>
-                                <input type="text" class="form-control input-default " name="email" placeholder="" >
+                                <label  class="form-label ">Email <span class="text-danger">*</span> </label>
+                                <input type="text" class="form-control input-default " name="email" placeholder="" required  >
                             </div>
                             <div class="col-6 mb-3 form-group">
                                 <label  class="form-label form-label">Phone Number</label><span class="text-danger">*</span>
@@ -171,12 +171,14 @@
 
                         </div>
                         <div class=" mb-3 ">
+                            <p id="size" style="position: absolute; top:46.6%; right:5%; z-index: 999;font-size: 11px"></p>
                             <label  class="form-label "> Passport Copy</label><span class="text-danger">*</span>
-                            <input type="file" class="form-control input-default" name="passport"   placeholder="" required>
+                            <input id="myFile" type="file" class="form-control input-default" name="passport"   placeholder="" required>
                         </div>
                         <div class=" mb-4 ">
+                            <p id="size2" style="position: absolute; top:59%; right:5%; z-index: 999;font-size: 11px"></p>
                             <label  class="form-label "> Medical Report</label><span class="text-danger">*</span > <span style="color: #f9a7a7; font-size:10px; ">(PDF ONLY)</span>
-                            <input type="file" class="form-control input-default" name="prescription"   placeholder=""  multiple>
+                            <input id="myFile2" type="file" class="form-control input-default" name="prescription"   placeholder=""    accept="application/pdf">
                             @error('prescription')
                                 <span class="text-sm text-danger"> {{$message}} </span>
                             @enderror
@@ -196,7 +198,7 @@
                             </div>
                             <div class="col-4 ">
                                 <label for="" class="form-label" > Passport Copy <span style="color: #f9a7a7; font-size:10px; ">(IMAGE ONLY)</span> </label>
-                                <input  type="file"   name="attendantPassport[]" class="form-control bg-white input-default  @error('attendantPassport.*') is-invalid @enderror">
+                                <input  type="file"   name="attendantPassport[]" class="form-control bg-white input-default  @error('attendantPassport.*') is-invalid @enderror" accept="image/*" placeholder="passport copy">
                             </div>
 
                         </div>
@@ -391,6 +393,32 @@
         let inputNew = $('.medi:last').clone(true);
         $(inputNew).insertAfter('.medi:last');
     });
+
+
+    //binds to onchange event of your input field
+$('#myFile').bind('change', function() {
+    let size = (this.files[0].size / 1024) /1024 ;
+//this.files[0].size gets the size of your file.
+    $('#size').html((Math.round(size*100)/100).toFixed(2)+" MB");
+
+});
+    //binds to onchange event of your input field
+$('#myFile2').bind('change', function() {
+    let size = (this.files[0].size / 1024) /1024 ;
+//this.files[0].size gets the size of your file.
+    $('#size2').html((Math.round(size*100)/100).toFixed(2)+" MB");
+
+});
+
+    // Get an array of the files
+//var files = $('input[type="file"]').get(0).files[0];
+    //$('#size').val(files.size);
+// // Loop through files
+// for (var i=0; file = files[i]; i++) {
+
+//     // File size, in bytes
+//     var size = file.size;
+// }
 </script>
 
 

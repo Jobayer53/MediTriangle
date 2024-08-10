@@ -15,6 +15,7 @@ class RoleController extends Controller
         $permission = Permission::all();
         $role = Role::all();
         $user = AdminModel::all();
+
         if (Auth::guard('admin_model')->user()->can('role')) {
             // Show the view page
             return view('backend.role.role',[
@@ -25,11 +26,11 @@ class RoleController extends Controller
         } else {
             return abort(404);
         }
-        // return view('backend.role.role',[
-        //     'user' => $user,
-        //     'role' => $role,
-        //     'permissions' => $permission,
-        // ]);
+    //    return view('backend.role.role',[
+    //         'user' => $user,
+    //         'role' => $role,
+    //         'permissions' => $permission,
+    //     ]);
 
     }
     function permissionStore(Request $request){

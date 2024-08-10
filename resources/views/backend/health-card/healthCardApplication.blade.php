@@ -3,25 +3,27 @@
 <div class="container-fluid">
     <div class="layout-specing">
         <div class="row">
-            <div class="col-lg-10 m-auto     ">
+            <div class="col-lg-12 m-auto     ">
                 <div class="" >
                     <div class="table-responsive shadow rounded ">
                         @if ($applicatios->count() != 0 )
                             <table class="table t bg-white mb-0" id="myTable">
                                 <thead>
                                     <tr>
+                                       <th >ID</th>
                                        <th >Name</th>
                                         <th>Phone Number</th>
                                         <th >Address</th>
                                         <th >Passport/Nid</th>
                                         <th >Status</th>
-                                        
+
                                         <th >Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($applicatios as $data)
                                     <tr>
+                                        <td>{{ $data->slug }}</td>
                                         <td>{{ $data->name }}</td>
                                         <td class="">{{$data->number }}</td>
                                         <td>  {{$data->address}} </td>

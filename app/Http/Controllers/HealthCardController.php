@@ -45,11 +45,22 @@ class HealthCardController extends Controller
             'name' => 'required',
             'price' => 'required',
             'benifits.*'  => 'required',
+            'photofirst'  => 'required',
+            'photosecond'  => 'required',
         ]);
-
+        $file1 = $request->photofirst;
+        $file2 = $request->photosecond;
+        $extension1 = $file1->getClientOriginalExtension();
+        $extension2 = $file2->getClientOriginalExtension();
+        $filename1 = 'HEALTH-CARD-FIRST-'.time().'.'.$extension1;
+        $filename2 = 'HEALTH-CARD-SECOND-'.time().'.'.$extension2;
+        $file1->move('uploads/healthcard/',$filename1);
+        $file2->move('uploads/healthcard/',$filename2);
         $health = new HealthCard();
         $health->name = $request->name;
         $health->price = $request->price;
+        $health->image_first = $filename1;
+        $health->image_second = $filename2;
         $health->benifits = json_encode($request->benifits);
         $health->status = 1;
         $health->save();

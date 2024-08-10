@@ -28,7 +28,12 @@
                                             @endforeach
                                         </td>
                                         @if (Auth::guard('admin_model')->user()->can('delete'))
-                                        <td><a class="btn btn-sm btn-danger" href="{{ route('delete.role',$roles->id) }}">Delete</a></td>
+                                            @if($key == 0)
+                                            <td><button class="btn btn-sm btn-dark" >Remove</button></td>
+                                            @else
+                                            <td><a class="btn btn-sm btn-danger" href="{{ route('delete.role',$roles->id) }}">Delete</a></td>
+
+                                            @endif
                                         @endif
                                     </tr>
                                     @endforeach
@@ -56,7 +61,7 @@
                                     @foreach ($user as $key => $users)
 
                                     <tr>
-                                        <td><strong>{{ $key+1 }}</strong></td>
+                                        <td><strong>{{  $loop->iteration }}</strong></td>
                                         <td>{{ $users->name }}</td>
                                         <td>
                                             @forelse ($users->getRoleNames() as $permission)
@@ -66,7 +71,11 @@
                                             @endforelse
                                         </td>
                                         @if (Auth::guard('admin_model')->user()->can('delete'))
+                                            @if($key == 0)
+                                            <td><button class="btn btn-sm btn-dark" >Remove</button></td>
+                                            @else
                                             <td><a class="btn btn-sm btn-danger" href="{{ route('remove.role',$users->id) }}">Remove</a></td>
+                                            @endif
                                         @endif
 
 
@@ -130,8 +139,12 @@
                                 <div class="mt-3">
                                     <select name="user_id" class="form-control" id="">
                                         <option value="">Select User</option>
-                                        @foreach ($user as $users)
-                                        <option value="{{ $users->id }}">{{ $users->name }}</option>
+                                        @foreach ($user as $key => $users)
+                                            @if ($key == 0 || $users->id == Auth::guard('admin_model')->user()->id)
+                                            
+                                            @else
+                                            <option value="{{ $users->id }}">{{ $users->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

@@ -29,6 +29,8 @@ use App\Http\Controllers\FindDoctorController;
 use App\Http\Controllers\PdfDownlodController;
 use App\Http\Controllers\SocialMediaController;
 use App\Http\Controllers\AdminMedicineController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HealthCardController;
 use App\Http\Controllers\SslCommerzPaymentController;
 
@@ -62,6 +64,10 @@ Route::post('/profile/forget/password/checkup',[ProfileController::class, 'forge
 Route::get('/profile/forget/password/verify/{token}',[ProfileController::class, 'forgetVerify'])->name('profile.forget.pass.verify');
 Route::post('/profile/forget/password/change/confirme',[ProfileController::class, 'forgetVerifyChangeConfirme'])->name('profile.forget.pass.change.confirme');
 
+//blog
+Route::get('/blogs', [FrontEndController::class, 'blogIndex'])->name('blogs');
+Route::get('/blog-view/{slug}', [FrontEndController::class, 'blog_view'])->name('blog_view');
+Route::get('/blogs-category/{slug}', [FrontEndController::class, 'blog_category_show'])->name('category_blog_show');
 
 
 Route::group(['middleware' => 'auth'],function(){
@@ -79,9 +85,9 @@ Route::group(['middleware' => 'auth'],function(){
 });
 
 //Appoinment
-Route::get('/appoinment',[FrontEndController::class, 'appoinmentLink'])->name('link.appoinment');
-Route::post('/appoinment/store',[AppoinmentController::class, 'appoinmentStore'])->name('store.appoinment');
-Route::get('/appoinment/store/done',[AppoinmentController::class, 'appoinmentStoreDone'])->name('store.appoinment.done');
+Route::get('/appointment',[FrontEndController::class, 'appoinmentLink'])->name('link.appoinment');
+Route::post('/appointment/store',[AppoinmentController::class, 'appoinmentStore'])->name('store.appoinment');
+Route::get('/appointment/store/done',[AppoinmentController::class, 'appoinmentStoreDone'])->name('store.appoinment.done');
 //front AJAX Request
 Route::post('/ajax/state',[FrontAjaxController::class, 'state'])->name('ajax.state');
 Route::post('/ajax/department',[FrontAjaxController::class, 'department'])->name('ajax.department');
@@ -89,6 +95,11 @@ Route::post('/ajax/hospital',[FrontAjaxController::class, 'hospital'])->name('aj
 Route::post('/ajax/doctor',[FrontAjaxController::class, 'doctor'])->name('ajax.doctor');
 Route::post('/ajax/doctor/info',[FrontAjaxController::class, 'doctorInfo'])->name('ajax.doctor.info');
 
+Route::get('/find-doctors', [FrontEndController::class, 'findDoctor'])->name('doctor_view_all');
+Route::get('/get/doctor/department/{id}', [FrontEndController::class, 'department_result'])->name('department.search');
+Route::get('/get/doctor/search/{search}', [FrontEndController::class, 'search_result'])->name('search.name');
+//hospital details
+Route::get('/hospital/details/{slug}',[FrontEndController::class, 'hospitalDetails'])->name('hospital.details');
 
 //Medicine
 // Route::get('/medicine',[MedicineController::class, 'link'])->name('link.medicine');
@@ -288,8 +299,8 @@ Route::group(['middleware' => 'admin_model'],function(){
     });
     //Role
     Route::get('role/link',[RoleController::class, 'index'])->name('role.link');
-    Route::post('permission/store',[RoleController::class, 'permissionStore'])->name('permission.store');
     Route::post('role/store',[RoleController::class, 'roleStore'])->name('role.store');
+    Route::post('permission/store',[RoleController::class, 'permissionStore'])->name('permission.store');
     Route::post('assign/store',[RoleController::class, 'assignStore'])->name('assign.store');
     Route::get('remove/role/{user_id}',[RoleController::class, 'removeRole'])->name('remove.role');
     Route::get('delete/role/{role_id}',[RoleController::class, 'deleteRole'])->name('delete.role');
@@ -297,7 +308,12 @@ Route::group(['middleware' => 'admin_model'],function(){
     Route::resources([
         'embassy'  => EmbassyController::class,
         'visatype' => VisaType::class,
+        'category'  =>CategoryController::class,
+        'blog'      =>BlogController::class,
     ]);
+
+//blogbackend
+
 
 });
 // Route::any('/{any}', function () {
