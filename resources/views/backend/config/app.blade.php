@@ -14,7 +14,7 @@
         <!-- Bootstrap Css -->
         <link href="{{ asset('backend/css/bootstrap.min.css') }}" class="theme-opt" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
-        {{-- <link href="{{ asset('backend/css/icons.min.css') }}" rel="stylesheet" type="text/css" /> --}}
+        <link href="{{ asset('backend/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('backend/libs/remixicon/fonts/remixicon.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('backend/libs/%40iconscout/unicons/css/line.css') }}" type="text/css" rel="stylesheet" />
         <!-- Style Css-->
@@ -324,7 +324,7 @@
         @yield('sum-script')
         <!-- javascript -->
         <script src="{{ asset('backend/libs/simplebar/simplebar.min.js') }}"></script>
-        {{-- <script src="{{ asset('backend/libs/apexcharts/apexcharts.min.js') }}"></script> --}}
+        <script src="{{ asset('backend/libs/apexcharts/apexcharts.min.js') }}"></script>
         <script src="{{ asset('backend/js/admin-apexchart.init.js') }}"></script>
         <script src="{{ asset('backend/libs/feather-icons/feather.min.js') }}"></script>
         <!-- Main Js -->

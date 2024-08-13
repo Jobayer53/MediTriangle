@@ -239,6 +239,14 @@ class FrontEndController extends Controller
             return back();
         }
     }
+    public function doctor_pdf($fileName){
+        $doctor = DoctorModel::where('pdf', $fileName)->first();
+        $filePath = public_path('uploads/doctor/pdf/'.$doctor->pdf);
+        return response()->file($filePath, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $fileName . '"'
+        ]);
+    }
 
     function hctc(){
         SEOMeta::setTitle('Health Card Terms And Conditions'); //web title

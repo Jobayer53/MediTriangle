@@ -111,6 +111,7 @@
                             <div class="col-md-6">
                                 <x-Input type="file" label="Profile" name="profile" />
                             </div>
+                         
 
                             <div class="col-md-6">
                                 <div class="mb-3">

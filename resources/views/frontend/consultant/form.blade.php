@@ -135,11 +135,11 @@
                                         <table class="table table-borderless table-sm">
                                             <tr>
                                                 <td class="text-dark">Department </td>
-                                                <td class="w-100">{{ $doctor->con_department->department }}</td>
+                                                <td class="w-100">{{ $doctor->con_department?->department }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-dark">Hospital</td>
-                                                <td class="w-100">{{ $doctor->con_hospital->hospital }}</td>
+                                                <td class="w-100">{{ $doctor->con_hospital?->hospital }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-dark">Fee</td>
