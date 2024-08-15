@@ -100,8 +100,8 @@
                     <div class="service-icon mb-4" >
                         <i class="{{ $service->icon }} text-white" style="font-size: 35px"></i>
                     </div>
-                    <h4 class="" style="position: absolute; top:120px">{{ $service->service }}</h4>
-                    <p class="m-0" style="position: absolute; padding:10px;top:160px;font-size:14px">{{ $service->short_description }}</p>
+                    <h4 class="" style="position: absolute; top:130px">{{ $service->service }}</h4>
+                    <p class="m-0" style="position: absolute; padding:10px;top:170px;font-size:14px">{{ $service->short_description }}</p>
                     {{-- <a class="btn btn-lg btn-primary rounded-pill" href="">
                         <i class="bi bi-arrow-right"></i>
                     </a> --}}
@@ -190,15 +190,21 @@
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="card doctor-card">
                         <img class="img-fluid  card-img-top" src="{{ asset('uploads/doctor/'.$doctor->profile) }}" style="object-fit: cover; height: 250px;">
-                    <div class="card-body">
+                    <div class="card-body ">
                         <h3>{{ $doctor->name }}</h3>
-                            <h6 class="fw-normal fst-italic text-primary mb-4">{{ $doctor->con_department->department }}</h6>
-                            <p class="mb-2" style="border-bottom: 1px solid #1ab8ae33;"><i class="fa-solid fa-house-medical text-primary p-2"></i>{{ $doctor->con_hospital->hospital }}</p>
+                            <h6 class="fw-normal fst-italic text-primary mb-4">{{ $doctor->con_department?->department }}</h6>
+                            <p class="mb-2" style="border-bottom: 1px solid #1ab8ae33;"><i class="fa-solid fa-house-medical text-primary p-2"></i>{{ $doctor->con_hospital?->hospital }}</p>
                             <p class="mb-2" style="border-bottom: 1px solid #1ab8ae33;"><i class="fa-solid fa-stethoscope text-primary p-2"></i>{{ $doctor->career_title }}</p>
                             <p class="m-0" style="border-bottom: 1px solid #1ab8ae33;"><i class=" fa-solid fa-book text-primary p-2"></i>{{ $doctor->speciality }}</p>
-                            <button class="btn btn-sm btn-primary  mt-1">Profile</button>
-                            <button class="btn btn-sm btn-primary mt-1">Book An Appointment</button>
+                            <div class="text-center">
+                                <a href="{{route('doctor_profile.show', ['fileName'=> $doctor->pdf])}}" target="_blank" class="btn btn-sm btn-primary  mt-3 ">Profile</a>
+                               {{-- <a href="{{ route('pdf.show', ['filename' => 'example.pdf']) }}" target="_blank">Open PDF</a> --}}
+                                <a href="{{route('video.consultant.take', $doctor->id)}}" class="btn btn-sm btn-primary mt-3 ">Book An Appointment</a>
+
+                            </div>
+
                     </div>
+
 
                 </div>
             </div>

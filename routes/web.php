@@ -48,7 +48,7 @@ Route::get('/appointment/pdf/download/{id}',[PdfDownlodController::class, 'appoi
 //Cache Clear
 Route::get('/clear/cache',[CacheController::class, 'clearCache'])->name('clear.Cache');
 
-
+Route::get('/doctor-profile/pdf/{fileName}', [FrontEndController::class, 'doctor_pdf'])->name('doctor_profile.show');
 
 //Front End Routes Free Access
 

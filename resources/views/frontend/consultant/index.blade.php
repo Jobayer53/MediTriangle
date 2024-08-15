@@ -45,8 +45,8 @@
                                     </a>
                                     <p class="card-text text-primary font-weight-bold">{{ number_format($doctor->fee) }}৳</p>
                                 </div>
-                                <p class="card-text">{{ $doctor->con_department->department }}</p>
-                                <p class="card-text text-dark"><i class="fa-solid fa-house-medical text-primary p-2"></i>{{ $doctor->con_hospital->hospital }}</p>
+                                <p class="card-text">{{ $doctor->con_department?->department }}</p>
+                                <p class="card-text text-dark"><i class="fa-solid fa-house-medical text-primary p-2"></i>{{ $doctor->con_hospital?->hospital }}</p>
                                 <a href="" class="btn btn-outline-dark btn-sm mt-3"> Profile</a>
                                 <a class="btn btn-outline-dark btn-sm mt-3" href="{{ route('video.consultant.take',$doctor->id) }}"><i class="fa-solid fa-video pe-2"></i>Book a video call</a>
                                 </div>

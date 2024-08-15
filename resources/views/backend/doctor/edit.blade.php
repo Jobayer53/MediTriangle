@@ -59,6 +59,7 @@
                                 </div>
                             </div>
 
+
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label class="form-label">Speciality</label>
@@ -71,6 +72,10 @@
                                     <img src="{{ asset('uploads/doctor/'.$datas->profile) }}" style="width:100px; border-radius: 5%" alt="">
                                 </div>
                                 <x-Input type="file" label="Profile" name="profile" />
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="" class="form-label">PDF <span class="text-warning ms-2">upload pdf to insert new or update</span></label>
+                                <input type="file" class="form-control @error('pdf') is-invalid @enderror"  name="pdf" accept="application/pdf" >
                             </div>
 
                         <button type="submit" class="btn btn-primary">Update</button>

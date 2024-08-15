@@ -22,6 +22,7 @@ class DoctorController extends Controller
 
     }
     function doctorStore(Request $request){
+
         $request->validate([
             'country_id'    => 'required',
             'state_id'      => 'required',
@@ -33,11 +34,16 @@ class DoctorController extends Controller
             'fee'           => 'required',
             'vat'           => 'required',
             'profile'       => 'required',
+            'pdf'           => 'required',
         ]);
         $make = $request->profile;
         $extn = $make->getClientOriginalExtension();
         $profileName = 'PRO'.rand(1,2000).'FILE'.rand(1,500).'.'. $extn;
         Image::make($make)->resize(500,500)->save(public_path('uploads/doctor/'.$profileName));
+        $pdf = $request->pdf;
+        $extn = $pdf->getClientOriginalExtension();
+        $pdfName = 'PDF'.rand(1,2000).'FILE'.rand(1,500).'.'. $extn;
+        $pdf->move(public_path('uploads/doctor/pdf/'),$pdfName);
         DoctorModel::insert([
             'country_id'    => $request->country_id,
             'state_id'      => $request->state_id,
@@ -49,6 +55,7 @@ class DoctorController extends Controller
             'speciality'    => $request->speciality,
             'fee'           => $request->fee,
             'vat'           => $request->vat,
+            'pdf'           => $pdfName,
             'created_by'    => Auth::guard('admin_model')->user()->id,
             'created_at'    => Carbon::now(),
         ]);
@@ -84,12 +91,25 @@ class DoctorController extends Controller
                 'profile' => $profileName,
             ]);
         }
+        if($request->pdf != ''){
+            $fileName = DoctorModel::where('id',$request->id)->first();
+            $path = public_path('uploads/doctor/pdf/'.$fileName->pdf);
+            unlink($path);
+            $pdf = $request->pdf;
+            $extn = $pdf->getClientOriginalExtension();
+            $pdfName = 'PDF'.rand(1,2000).'FILE'.rand(1,500).'.'. $extn;
+            $pdf->move(public_path('uploads/doctor/pdf/'),$pdfName);
+            DoctorModel::where('id',$request->id)->update([
+               'pdf' => $pdfName,
+            ]);
+        }
         DoctorModel::where('id',$request->id)->update([
             'name'          => $request->name,
             'career_title'  => $request->career_title,
             'speciality'    => $request->speciality,
             'fee'           => $request->fee,
             'vat'           => $request->vat,
+
         ]);
         return back()->with('succ','Update Successfully');
     }

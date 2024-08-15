@@ -32,7 +32,7 @@ class VisaController extends Controller
     }
     function visaStore(Request $request){
 
-
+        // dd($request->all());
 
         $order_id ='#OR'.rand(1,5000).'DER'.rand(1,500);
         $fee = 2500;
@@ -40,8 +40,8 @@ class VisaController extends Controller
             'name'              => 'required',
             'phone'            => 'required',
             'email'             => 'required',
-            'passport'          => 'required|image|mimes:jpeg,png,jpg,gif',
-            'prescription'      => 'required|mimes:pdf|max:10000',
+            'passport'          => 'required|mimes:pdf',
+            'prescription'      => 'required|mimes:pdf',
 
         ],[
             'prescription' => 'Report Must Be PDF!',
@@ -125,14 +125,17 @@ class VisaController extends Controller
                 return back()->with('err', 'Please Add Attendent Passport');
             }
         }
-
-        Photo::upload($request->passport,'uploads/visa','VIS');
+        $passport = $request->file('passport');
+        $extn = $passport->getClientOriginalExtension();
+        $profileName = 'PRO'.rand(1,2000).'FILE'.rand(1,500).'.'. $extn;
+        $passport->move(public_path('uploads/visa/'), $profileName);
+        // Photo::upload($request->passport,'uploads/visa','VIS');
         VisaModel::insert([
             'name'              => $request->name,
             'number'            => $request->phone,
             'email'             => $request->email,
             'order_id'          => $order_id,
-            'passport'           => Photo::$name,
+            'passport'           => $profileName,
             'created_at'         => Carbon::now(),
         ]);
 

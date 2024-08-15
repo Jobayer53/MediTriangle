@@ -97,8 +97,12 @@
                         <div class="col-md-6">
                             <x-Input type="file" label="Profile" name="profile" />
                         </div>
-
                         <div class="col-md-6">
+                            <label for="" class="form-label">PDF</label>
+                            <input type="file" class="form-control @error('pdf') is-invalid @enderror"  name="pdf" accept="application/pdf" required>
+                        </div>
+
+                        <div class="col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Speciality</label>
                                 <textarea type="text" class="form-control @error('speciality') is-invalid @enderror" label="Speciality" name="speciality"  placeholder="Bio"></textarea>

@@ -1,4 +1,4 @@
-@extends('backend.config.app')
+    @extends('backend.config.app')
 
 
 @section('content')
@@ -48,7 +48,21 @@
                 </nav>
             </div><!--end col-->
 
-            <div class="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">
+
+        <div class="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">
+            <div class="justify-content-md-end">
+                <form>
+                    <div class="row justify-content-end align-items-center">
+                        <div class="col-sm-12 col-md-7 mt-4 mt-sm-0">
+                            <div class="d-grid">
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#speciality">Add Speciality</a>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </form><!--end form-->
+            </div>
+        </div><!--end col-->
+            {{-- <div class="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">
                 <div class="justify-content-md-end">
                     <form>
                         <div class="row justify-content-end align-items-center">
@@ -60,7 +74,7 @@
                         </div><!--end row-->
                     </form><!--end form-->
                 </div>
-            </div><!--end col-->
+            </div><!--end col--> --}}
         </div>
         {{-- Modals --}}
         <div class="modal fade" id="appointmentform" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
@@ -140,42 +154,24 @@
                     <table class="table table-center bg-white mb-0">
                         <thead>
                             <tr>
-                                <th class="border-bottom p-3" style="min-width: 180px;">Country</td>
-                                <th class="border-bottom p-3" style="min-width: 180px;">State</td>
-                                <th class="border-bottom p-3" style="min-width: 180px;">Hospital</td>
-                                <th class="border-bottom p-3" style="min-width: 180px;">Department</th>
+                                <th class="border-bottom p-3" style="min-width: 180px;">Speciality</th>
                                 <th class="border-bottom p-3">Status</th>
-                                <th class="border-bottom p-3">Created</th>
-                                @if (Auth::guard('admin_model')->user()->can('edit') || Auth::guard('admin_model')->user()->can('delete'))
-                                    <th class="border-bottom p-3 text-center" style="min-width: 100px;">Action</th>
+                                @if (Auth::guard('admin_model')->user()->can('delete'))
+                                <th class="border-bottom p-3 text-end" style="min-width: 100px;">Action</th>
                                 @else
-                                    <th></th>
+                                <th></th>
                                 @endif
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach ($datas as $data)
+                                @foreach ($sps as $sp)
                                 <tr>
-                                    <td class="p-3">
-                                        <span class="{{ $data->con_country == null ?'badge bg-soft-info':'' }}">{{ $data->con_country == null ?'Unknown':$data->con_country->country }}</span>
-                                    </td>
-                                    <td class="p-3">
-                                        <span class="{{ $data->con_state == null ?'badge bg-soft-info':'' }}">{{ $data->con_state == null ?'Unknown':$data->con_state->state }}</span>
-                                    </td>
-                                    <td class="p-3">{{ $data->con_hospital->hospital }}</td>
-                                    <th class="p-3">{{ $data->department }}</th>
-                                    <td class="p-3">
-
-                                    </td>
-                                    <td class="p-3"><span class="badge bg-soft-{{ $data->status == 0?'danger':'success' }}">{{ $data->status == 0 ?'Deactive':'active' }}</span></td>
+                                    <th class="p-3">{{ $sp->speciality }}</th>
+                                    <td class="p-3"><span class="badge bg-soft-{{ $sp->status == 0?'danger':'success' }}">{{ $sp->status == 0 ?'Deactive':'active' }}</span></td>
                                     <td class="text-end p-3">
-                                        @if (Auth::guard('admin_model')->user()->can('edit'))
-
-                                        <a href="{{ $data->department }}" data-value="{{ $data->id }}" class="update_value btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#update"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        @endif
                                         @if (Auth::guard('admin_model')->user()->can('delete'))
 
-                                        <a href="{{ route('department.delete',$data->id) }}" data-bs-toggle="modal" data-bs-target="#LoginForm" class="delete_value btn btn-icon btn-pills btn-soft-danger"><i class="fa-solid fa-trash"></i></a>
+                                        <a href="{{ route('d.speciality.delete',$sp->id) }}" data-bs-toggle="modal" data-bs-target="#LoginForm" class="delete_value btn btn-icon btn-pills btn-soft-danger"><i class="fa-solid fa-trash"></i></a>
                                         @endif
                                     </td>
                                 </tr>
@@ -184,6 +180,7 @@
                     </table>
                 </div>
             </div>
+
         </div>
 
 
@@ -196,14 +193,13 @@
         <div class="col-xl-9 col-lg-6 col-md-4">
 
         </div><!--end col-->
-
         <div class="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">
             <div class="justify-content-md-end">
                 <form>
                     <div class="row justify-content-end align-items-center">
                         <div class="col-sm-12 col-md-7 mt-4 mt-sm-0">
                             <div class="d-grid">
-                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#speciality">Add Speciality</a>
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#appointmentform">Add department</a>
                             </div>
                         </div><!--end col-->
                     </div><!--end row-->
@@ -245,24 +241,42 @@
                 <table class="table table-center bg-white mb-0">
                     <thead>
                         <tr>
-                            <th class="border-bottom p-3" style="min-width: 180px;">Speciality</th>
+                            <th class="border-bottom p-3" style="min-width: 180px;">Country</td>
+                            <th class="border-bottom p-3" style="min-width: 180px;">State</td>
+                            <th class="border-bottom p-3" style="min-width: 180px;">Hospital</td>
+                            <th class="border-bottom p-3" style="min-width: 180px;">Department</th>
                             <th class="border-bottom p-3">Status</th>
-                            @if (Auth::guard('admin_model')->user()->can('delete'))
-                            <th class="border-bottom p-3 text-end" style="min-width: 100px;">Action</th>
+                            <th class="border-bottom p-3">Created</th>
+                            @if (Auth::guard('admin_model')->user()->can('edit') || Auth::guard('admin_model')->user()->can('delete'))
+                                <th class="border-bottom p-3 text-center" style="min-width: 100px;">Action</th>
                             @else
-                            <th></th>
+                                <th></th>
                             @endif
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($sps as $sp)
+                            @foreach ($datas as $data)
                             <tr>
-                                <th class="p-3">{{ $sp->speciality }}</th>
-                                <td class="p-3"><span class="badge bg-soft-{{ $sp->status == 0?'danger':'success' }}">{{ $sp->status == 0 ?'Deactive':'active' }}</span></td>
+                                <td class="p-3">
+                                    <span class="{{ $data->con_country == null ?'badge bg-soft-info':'' }}">{{ $data->con_country == null ?'Unknown':$data->con_country->country }}</span>
+                                </td>
+                                <td class="p-3">
+                                    <span class="{{ $data->con_state == null ?'badge bg-soft-info':'' }}">{{ $data->con_state == null ?'Unknown':$data->con_state->state }}</span>
+                                </td>
+                                <td class="p-3">{{ $data->con_hospital->hospital }}</td>
+                                <th class="p-3">{{ $data->department }}</th>
+                                <td class="p-3">
+
+                                </td>
+                                <td class="p-3"><span class="badge bg-soft-{{ $data->status == 0?'danger':'success' }}">{{ $data->status == 0 ?'Deactive':'active' }}</span></td>
                                 <td class="text-end p-3">
+                                    @if (Auth::guard('admin_model')->user()->can('edit'))
+
+                                    <a href="{{ $data->department }}" data-value="{{ $data->id }}" class="update_value btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#update"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    @endif
                                     @if (Auth::guard('admin_model')->user()->can('delete'))
 
-                                    <a href="{{ route('d.speciality.delete',$sp->id) }}" data-bs-toggle="modal" data-bs-target="#LoginForm" class="delete_value btn btn-icon btn-pills btn-soft-danger"><i class="fa-solid fa-trash"></i></a>
+                                    <a href="{{ route('department.delete',$data->id) }}" data-bs-toggle="modal" data-bs-target="#LoginForm" class="delete_value btn btn-icon btn-pills btn-soft-danger"><i class="fa-solid fa-trash"></i></a>
                                     @endif
                                 </td>
                             </tr>

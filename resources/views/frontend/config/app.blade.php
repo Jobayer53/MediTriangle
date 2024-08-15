@@ -71,7 +71,7 @@
                     <div class="d-inline-flex align-items-center">
                         @forelse ($socials as $social)
                             <a class="text-body px-2" href="{{ $social->link }}" target="_blank">
-                                <i class="{{ $social->icon }}"></i>
+                                <i class="{{ $social->icon }}" style="color: white !important;"></i>
                             </a>
                         @empty
                         @endforelse

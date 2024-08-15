@@ -23,6 +23,8 @@ return new class extends Migration
             $table->longText('speciality')->nullable();
             $table->bigInteger('fee');
             $table->bigInteger('vat');
+            $table->string('pdf');
+
             $table->bigInteger('video_fee')->nullable();
             $table->bigInteger('video_vat')->nullable();
             $table->integer('activity')->default(1);
