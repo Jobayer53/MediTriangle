@@ -274,20 +274,25 @@
                                 <div class="card-header">
                                     <h5>Passport</h5>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-mg-12">
-                                        <div class="team-person position-relative overflow-hidden">
-                                            <img style="width: 100%" src="{{ asset('uploads/visa/'.$datas->passport) }}" class="img-fluid" alt="">
-                                            <ul class="list-unstyled team-like">
-                                                <li>
-                                                    <a href="{{ asset('uploads/visa/'.$datas->passport) }}" class="btn btn-icon btn-pills btn-soft-danger download" download>
-                                                        <i class="fa-solid fa-arrow-down"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="team-person position-relative overflow-hidden">
+                                                {{-- <img style="width: 100%" src="{{ asset('uploads/visa/'.$datas->passport) }}" class="img-fluid" alt=""> --}}
+                                                <iframe src="{{ asset('uploads/visa/' .$datas->passport) }}" width="100%" height="230px"></iframe>
+                                                <ul class="list-unstyled team-like">
+                                                    <li>
+
+                                                        <a href="{{ asset('uploads/visa/'.$datas->passport) }}" class="btn btn-icon btn-pills btn-soft-danger download" download>
+                                                            <i class="fa-solid fa-arrow-down"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                             {{-- Reports --}}

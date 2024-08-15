@@ -100,8 +100,8 @@
                     <div class="service-icon mb-4" >
                         <i class="{{ $service->icon }} text-white" style="font-size: 35px"></i>
                     </div>
-                    <h4 class="" style="position: absolute; top:120px">{{ $service->service }}</h4>
-                    <p class="m-0" style="position: absolute; padding:10px;top:160px;font-size:14px">{{ $service->short_description }}</p>
+                    <h4 class="" style="position: absolute; top:130px">{{ $service->service }}</h4>
+                    <p class="m-0" style="position: absolute; padding:10px;top:170px;font-size:14px">{{ $service->short_description }}</p>
                     {{-- <a class="btn btn-lg btn-primary rounded-pill" href="">
                         <i class="bi bi-arrow-right"></i>
                     </a> --}}

@@ -32,13 +32,13 @@
                 <div class="justify-content-md-end">
                     <form action="" method="get">
                         <div class="row">
-                            <div class="col-sm-12 col-md-5">
+                            <div class="col-sm-12 col-md-4">
                                 <div class="mb-0 position-relative">
                                     <input class="form-control" type="date" value="{{ Request::get('date') }}" name="date" id="">
                                 </div>
                             </div><!--end col-->
 
-                            <div class="col-sm-12 col-md-5">
+                            <div class="col-sm-12 col-md-4">
                                 <div class="mb-0 position-relative">
                                     <select class="form-select form-control" name="select">
                                     <option value="">Status</option>
@@ -50,7 +50,7 @@
                                 </div>
                             </div><!--end col-->
 
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-4">
                                 <div class="mb-0 position-relative">
                                     <button type="submit" class="btn btn-primary btn">Filter</button>
                                 </div>

@@ -120,6 +120,7 @@
     background: var(--primary);
     border-radius: 50%;
     transform: rotate(-14deg);
+    margin-top: 14px;
 }
 
 .service-item .service-icon i {
@@ -489,3 +490,8 @@
 /* sdfas */
 
 
+.disabled {
+    pointer-events: none; /* Disable click events */
+    opacity: 0.65; /* Make it look disabled */
+    cursor: not-allowed; /* Show a not-allowed cursor */
+}

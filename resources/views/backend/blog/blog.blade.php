@@ -38,10 +38,10 @@
                                 <thead>
                                     <tr>
                                         <th><strong>#</strong></th>
+                                        <th><strong>Image</strong></th>
                                         <th><strong>Blog Title</strong></th>
                                         <th><strong>Category Name</strong></th>
                                         <th><strong>Author's Name</strong></th>
-                                        <th><strong>Image</strong></th>
                                         <th><strong>Status</strong></th>
                                         <th><strong>Action</strong></th>
                                     </tr>
@@ -50,19 +50,21 @@
                                     @foreach ($blog as $sl => $blogs)
                                         <tr>
                                             <td><strong>{{ $sl + 1 }}</strong></td>
+                                            <td style="width: 6%">
+
+                                               <img class="img-fluid " src="{{ asset('frontend/blog') }}/{{ $blogs->image }}"
+                                                        class="me-2" width="100%"  alt="">
+                                            </td>
                                             <td><span class="w-space-no">{{ $blogs->title }}</span>  </td>
                                             <td><span class="w-space-no">{{ $blogs->category->name }}</span></td>
                                             <td><span class="w-space-no">{{ $blogs->author }}</span></td>
-                                            <td>
-                                                <div class="d-flex align-items-center"><img src="{{ asset('frontend/blog') }}/{{ $blogs->image }}"
-                                                        class="rounded-lg me-2" width="20" alt="">
-                                            </td>
+
                                             <td><span
                                                     class="badge  {{ $blogs->status == 'inactive' ? 'text-bg-danger' : 'badge light' }} text-bg-primary">{{ $blogs->status }}</span>
                                             </td>
 
                                             <td>
-                                                <divsm class="d-flex">
+                                                <div class="d-flex">
                                                     <a href="{{ route('blog.edit', $blogs->id) }}"
                                                         class="btn btn-primary shadow btn-sm sharp me-1"><i class="fa fa-pencil"></i></a>
 
@@ -75,7 +77,7 @@
                                                         <button type="submit" class="btn btn-danger shadow btn-sm sharp"><i
                                                                 class="fa fa-trash"></i></button>
                                                     </form>
-                                                </divsm
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

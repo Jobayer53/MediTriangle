@@ -292,7 +292,7 @@
                             </div>
                             <div class="modal-footer">
                                 {{-- <button type="button" class="btn btn-secondary" id="close-modal" data-dismiss="modal">Close</button> --}}
-                                <a href="" id="delete_confirm" class="btn btn-danger" >Delete</a>
+                                <a href="" id="delete_confirm" class="btn btn-danger disable"  >Delete</a>
                             </div>
                         </div>
                     </div>
@@ -334,7 +334,16 @@
         <script src="{{ asset('backend/js/app.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function() {
+                $('#delete_confirm').on('click', function(event) {
 
+                    $(this).addClass('disabled'); // Add a disabled class
+                    $(this).text('deleting...'); // Optionally change the link text
+                    // Perform any additional actions, such as sending an AJAX request or redirecting
+                });
+            });
+        </script>
         {{-- Modals For View --}}
         @if (session('succ'))
         <script>
