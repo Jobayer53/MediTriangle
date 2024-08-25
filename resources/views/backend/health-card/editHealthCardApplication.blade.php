@@ -38,6 +38,10 @@
                         @csrf
 
                         <div class="">
+                            <div class=" mb-3">
+                                <label for="" class="form-label"> ID </label>
+                                <input type="text" name="slug" class="form-control" value="{{$applications->slug}}">
+                            </div>
                             <div class="mb-3">
                                 <select name="status" id="status" class="form-select form-select-sm bg-soft-info">
                                     <option value=" PROCESSING"> PROCESSING</option>
@@ -49,7 +53,7 @@
                             <div class=" mb-3">
                                 <label for="" class="form-label"> Note </label>
                                 <input type="hidden" name="id" value="{{$applications->id}}">
-                                <textarea name="note" class="form-control "  > {{$applications->note}} </textarea>
+                                <textarea name="note" class="form-control"> {{$applications->note}} </textarea>
                             </div>
 
 

@@ -20,9 +20,11 @@
             {{-- Website INfo --}}
             <div class="col-md-5 mb-3">
                 <div class="card border-0 p-4 rounded shadow">
-                    <form action="{{ route('owner.store') }}" method="POST" class="mt-4">
+                    <form action="{{ route('owner.store') }}" method="POST" class="mt-4" enctype="multipart/form-data
+                    ">
                         @csrf
                         <div class="row">
+
                             <div class="col-md-6">
                                 <x-Input type="text" label="Brand Name" name="name"  placeholder="Name"/>
                             </div>
@@ -32,11 +34,11 @@
                             </div>
 
                             <div class="col-md-6">
-                                <x-Input-Icon type="number" label="Number" name="number"  placeholder="00-000-00" :icon="+880"/>
+                                <x-Input-Icon type="number" label="Number" name="number"  placeholder="000-000-0000" :icon="+880"/>
                             </div>
 
                             <div class="col-md-6">
-                                <x-Input-Icon type="number" label="Landline" name="landline"  placeholder="000-0000-000" :icon="+880"/>
+                                <x-Input-Icon type="number" label="Landline" name="landline"  placeholder="000-000-0000" :icon="+880"/>
                             </div>
 
                             <div class="col-12">

@@ -32,6 +32,7 @@ use App\Http\Controllers\AdminMedicineController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HealthCardController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SslCommerzPaymentController;
 
 Auth::routes();

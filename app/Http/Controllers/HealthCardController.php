@@ -14,7 +14,7 @@ class HealthCardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
 
         $healths = HealthCard::all();
@@ -27,6 +27,7 @@ class HealthCardController extends Controller
         }
 
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -129,15 +130,37 @@ class HealthCardController extends Controller
         return back();
     }
 
-    public function healthCardData(){
-        $applicatios = HealthCardApplicaton::all();
+    public function healthCardData(Request $request, ){
+
+        // $applicatios = HealthCardApplicaton::all();
+        $query = HealthCardApplicaton::query();
+
+
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            $query->where('name', 'like', "%{$searchTerm}%"); // Adjust column_name as needed
+            $query->orWhere('slug', 'like', "%{$searchTerm}%"); // Adjust column_name as needed
+            $query->orWhere('number', 'like', "%{$searchTerm}%"); // Adjust column_name as needed
+            $query->orWhere('address', 'like', "%{$searchTerm}%"); // Adjust column_name as needed
+            $query->orWhere('passport_nid', 'like', "%{$searchTerm}%"); // Adjust column_name as needed
+        }
+
+        $results = $query->latest()->paginate(12);
+
         if (Auth::guard('admin_model')->user()->can('health_card_application')){
-            return view('backend.health-card.healthCardApplication', compact('applicatios'));
+            return view('backend.health-card.healthCardApplication',[
+                'applicatios' => $results,
+
+            ]);
         }else{
             return abort(404);
         }
 
     }
+
+    // public function healthCardDataPaginate($id){
+    //     $health_card = HealthCardApplicaton::where('id', $id)->first();
+    // }
     public function healthCardDataEdit($id){
         $applications = HealthCardApplicaton::find($id);
         if (Auth::guard('admin_model')->user()->can('health_card_application')){
@@ -150,6 +173,7 @@ class HealthCardController extends Controller
     public function healthCardDataUpdate(Request $request ){
         if (Auth::guard('admin_model')->user()->can('health_card_application')){
             $applications = HealthCardApplicaton::find($request->id);
+            $applications->slug = $request->slug;
             $applications->status = $request->status;
             $applications->note = $request->note;
             $applications->save();
