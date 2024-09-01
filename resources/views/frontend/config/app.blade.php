@@ -157,8 +157,8 @@
                         <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>{{ $owners->address }}
                         </p>
                         <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>{{ $owners->email }}</p>
-                        <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>+880{{ $owners->number }}</p>
-                        <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>+880{{ $owners->landline }}</p>
+                        <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>+880 {{ $owners->number }}</p>
+                        <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>+880 {{ $owners->landline }}</p>
                     @endif
                 </div>
                 <div class="col-lg-3 col-md-6">
