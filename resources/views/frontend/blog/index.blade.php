@@ -128,9 +128,7 @@
                                                 by <span class="text-uppercase fw-bolder">{{ $blog->author }}</span>
                                             </div>
                                             <div class="col-6 fw-bolder" style="text-align: end">
-                                                <p class="text-secondary"><span style="padding-right: 3px"><img
-                                                            src="{{ asset('Themes/Theme1/images/eyebig.svg') }}"
-                                                            alt=""></span>{{ number_format($blog->view_count) }}</p>
+                                                <p class="text-secondary"><span style="padding-right: 3px"><i class="fa-solid fa-eye"></i></span>{{ number_format($blog->view_count) }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -179,7 +177,7 @@
                                <div class="post post-list-sm circle">
                                 <ul class="list-group list-group-flush">
                                     @forelse ($cats as  $category)
-                                    <li class="list-group-item"><a href="{{ route('category_blog_show', $category->slug) }}" class="text text-dark">{{ $category->name }}</a></li>
+                                    <li class="list-group-item"><a href="{{ route('category_blog_show', $category->slug) }}" class="text text-dark">{{ $category->name }}</a><span class="float-end">{{ $category->blogs ? $category->blogs->count(): '0' }}</span></li>
                                     @empty
                                     <li class="list-group-item">No Data Found</li>
                                     @endforelse

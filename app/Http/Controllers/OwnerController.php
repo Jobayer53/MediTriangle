@@ -30,6 +30,7 @@ class OwnerController extends Controller
             'landline'  => 'required|max:10',
             'number'    => 'required|max:10',
         ]);
+
         OwnerModel::insert([
             'name'          => $request->name,
             'email'         => $request->email,

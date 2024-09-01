@@ -195,7 +195,7 @@
                             <h6 class="fw-normal fst-italic text-primary mb-4">{{ $doctor->con_department?->department }}</h6>
                             <p class="mb-2" style="border-bottom: 1px solid #1ab8ae33;"><i class="fa-solid fa-house-medical text-primary p-2"></i>{{ $doctor->con_hospital?->hospital }}</p>
                             <p class="mb-2" style="border-bottom: 1px solid #1ab8ae33;"><i class="fa-solid fa-stethoscope text-primary p-2"></i>{{ $doctor->career_title }}</p>
-                            <p class="m-0" style="border-bottom: 1px solid #1ab8ae33;"><i class=" fa-solid fa-book text-primary p-2"></i>{{ $doctor->speciality }}</p>
+                            {{-- <p class="m-0" style="border-bottom: 1px solid #1ab8ae33;"><i class=" fa-solid fa-book text-primary p-2"></i>{{ $doctor->speciality }}</p> --}}
                             <div class="text-center">
                                 <a href="{{route('doctor_profile.show', ['fileName'=> $doctor->pdf])}}" target="_blank" class="btn btn-sm btn-primary  mt-3 ">Profile</a>
                                {{-- <a href="{{ route('pdf.show', ['filename' => 'example.pdf']) }}" target="_blank">Open PDF</a> --}}
@@ -241,9 +241,9 @@
 
                     {{-- <img fetchPriority="high" class="img-fluid rounded-top " width="100%" height="auto" src="{{asset('uploads/healthcard/'.$healths->image_first.'')}}" alt=""> --}}
                     <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center" style="background: rgb(15 24 49 / 43%);">
-                        <h3 class="text-white">{{$healths->name}}</h3>
+                        {{-- <h3 class="text-white">{{$healths->name}}</h3> --}}
                         <h1 class="display-4 text-white mb-0">
-                            <small class="align-top fw-normal" style="font-size: 22px; line-height: 45px;">৳</small>{{$healths->price}}<small class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/ Year</small>
+                            <small class="align-top fw-normal" style="font-size: 22px; line-height: 45px;">৳ {{ $healths->price }}</small><small class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;"></small>
                         </h1>
                     </div>
                 </div>

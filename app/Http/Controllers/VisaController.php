@@ -40,12 +40,13 @@ class VisaController extends Controller
             'name'              => 'required',
             'phone'            => 'required',
             'email'             => 'required',
-            'passport'          => 'required|mimes:pdf',
+            'passport'          => 'required',
             'prescription'      => 'required|mimes:pdf',
 
         ],[
             'prescription' => 'Report Must Be PDF!',
         ]);
+
         //Login
         // if (!Auth::check()) {
         //     if (User::where('number',$request->number)->exists()) {
