@@ -32,7 +32,7 @@ class VisaController extends Controller
     }
     function visaStore(Request $request){
 
-        // dd($request->all());
+
 
         $order_id ='#OR'.rand(1,5000).'DER'.rand(1,500);
         $fee = 2500;
@@ -141,7 +141,7 @@ class VisaController extends Controller
         ]);
 
         $adminEmails = [
-            'admin1@example.com',
+            'unknown327523@gmail.com',
             // Add more admin emails as needed
         ];
         $messageAdmin = 'New visa invitation requested! Take a look.';

@@ -173,7 +173,10 @@
                         <div class=" mb-3 ">
                             <p id="size" style="position: absolute; top:46.6%; right:5%; z-index: 999;font-size: 11px"></p>
                             <label  class="form-label "> Passport Copy</label><span class="text-danger">*</span>
+
                             <input id="myFile" type="file" class="form-control input-default" name="passport"   placeholder="" required accept="image/*">
+
+
                         </div>
                         <div class=" mb-4 ">
                             <p id="size2" style="position: absolute; top:59%; right:5%; z-index: 999;font-size: 11px"></p>

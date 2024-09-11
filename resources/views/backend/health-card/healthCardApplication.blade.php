@@ -87,56 +87,56 @@ use App\Models\HealthCard;
 @endsection
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 <script>
-function performSearch() {
-    const query = $('#searchInput').val();
+// function performSearch() {
+//     const query = $('#searchInput').val();
 
-    $.ajax({
-        url: '{{ route('health.card.view.search') }}',
-        type: 'GET',
-        data: { search: query },
-        success: function(response) {
-            const results = response.data;
-            let rows = '';
+//     $.ajax({
+//         url: "{{ route('health.card.data') }}",
+//         type: 'GET',
+//         data: { search: query },
+//         success: function(response) {
+//             const results = response.data;
+//             let rows = '';
 
-            if (results.length > 0) {
-                results.forEach(result => {
-                    rows += `<tr>
-                                <td>${result.slug}</td>
-                                <td>${result.name}</td>
-                                <td>${result.number}</td>
-                                <td>${result.address}</td>
-                                <td>${result.passport_nid || 'NO DATA'}</td>
-                                <td><span class="badge bg-soft-info">${result.status}</span></td>
-                                <td>
-                                    <a href="{{ url('health-card/edit/${result.id}') }}" class="btn btn-icon btn-pills btn-soft-success"><i class="fa-solid fa-pen-to-square"></i></a>
-                                </td>
-                            </tr>`;
-                });
+//             if (results.length > 0) {
+//                 results.forEach(result => {
+//                     rows += `<tr>
+//                                 <td>${result.slug}</td>
+//                                 <td>${result.name}</td>
+//                                 <td>${result.number}</td>
+//                                 <td>${result.address}</td>
+//                                 <td>${result.passport_nid || 'NO DATA'}</td>
+//                                 <td><span class="badge bg-soft-info">${result.status}</span></td>
+//                                 <td>
+//                                     <a href="{{ url('health-card/edit/${result.id}') }}" class="btn btn-icon btn-pills btn-soft-success"><i class="fa-solid fa-pen-to-square"></i></a>
+//                                 </td>
+//                             </tr>`;
+//                 });
 
-                $('#tableBody').html(rows);
-                $('#noData').addClass('d-none');
-            } else {
-                $('#tableBody').empty();
-                $('#noData').removeClass('d-none');
-            }
-        },
-        error: function(xhr) {
-            console.error('Error:', xhr);
-        }
-    });
-}
+//                 $('#tableBody').html(rows);
+//                 $('#noData').addClass('d-none');
+//             } else {
+//                 $('#tableBody').empty();
+//                 $('#noData').removeClass('d-none');
+//             }
+//         },
+//         error: function(xhr) {
+//             console.error('Error:', xhr);
+//         }
+//     });
+// }
 
-// Optionally, you can trigger search on pressing Enter
-$('#searchInput').keypress(function(e) {
-    console.log($this.val);
+// // Optionally, you can trigger search on pressing Enter
+// $('#searchInput').keypress(function(e) {
+//     console.log($this.val);
 
-    if (e.which == 13) {
-        performSearch();
-        e.preventDefault();
-    }
-});
+//     if (e.which == 13) {
+//         performSearch();
+//         e.preventDefault();
+//     }
+// });
 </script>
 @endsection
 

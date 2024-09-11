@@ -136,7 +136,7 @@ class VideoConsultant extends Controller
 
 
         $adminEmails = [
-            'admin1@example.com',
+            'unknown327523@gmail.com',
             // Add more admin emails as needed
         ];
         $messageAdmin = 'New video consultation requested! Take a look.';

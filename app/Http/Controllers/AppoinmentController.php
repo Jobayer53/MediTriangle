@@ -65,7 +65,7 @@ class AppoinmentController extends Controller
             $appoinment->status = "PROCESSING";
             $appoinment->save();
         $adminEmails = [
-            'admin1@example.com',
+            'unknown327523@gmail.com',
             // Add more admin emails as needed
         ];
         $messageAdmin = 'New appoinment requested! Take a look.';
